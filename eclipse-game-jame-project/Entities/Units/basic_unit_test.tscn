@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cx7tgikucfsk2"]
+
+[ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_w7rph"]
+[ext_resource type="Texture2D" uid="uid://bgn3w2hwx0ahh" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00.png" id="2_8m225"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7rph"]
+radius = 7.0
+height = 24.0
+
+[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462]
+texture_filter = 1
+script = ExtResource("1_w7rph")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1114960161]
+position = Vector2(0, 28)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_w7rph")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=311601955]
+texture = ExtResource("2_8m225")
+
+[node name="Hitbox Spawn" type="Node2D" parent="." unique_id=130069617]
+
+[node name="Range" type="RayCast2D" parent="." unique_id=1767714874]
+position = Vector2(0, 12)
+rotation = -1.5707964
+
+[node name="Cooldown" type="Timer" parent="." unique_id=1953114253]
