@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cuopk2ld3jl66"]
+
+[ext_resource type="PackedScene" uid="uid://cx7tgikucfsk2" path="res://Entities/Units/basic_unit_test.tscn" id="1_abhxl"]
+[ext_resource type="PackedScene" uid="uid://dyjgmurckaguh" path="res://Components/mouse_follower.tscn" id="2_g54tn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1574"]
+size = Vector2(616, 879)
+
+[node name="Test Scene" type="Node2D" unique_id=930342871]
+y_sort_enabled = true
+
+[node name="Units" type="Node2D" parent="." unique_id=431631231]
+
+[node name="B-BS-1" parent="Units" unique_id=1248488462 instance=ExtResource("1_abhxl")]
+position = Vector2(-91, 202)
+speed = 15.0
+acceleration = 5.0
+max_health = 5.0
+damage = 2.0
+
+[node name="R-BS-1" parent="Units" unique_id=605443549 instance=ExtResource("1_abhxl")]
+position = Vector2(573, -69)
+faction = 1
+speed = 30.0
+acceleration = 5.0
+max_health = 5.0
+damage = 2.0
+
+[node name="R-BS-2" parent="Units" unique_id=363972752 instance=ExtResource("1_abhxl")]
+position = Vector2(684, 62)
+faction = 1
+speed = 30.0
+acceleration = 5.0
+max_health = 5.0
+damage = 2.0
+
+[node name="R-BS-3" parent="Units" unique_id=392768485 instance=ExtResource("1_abhxl")]
+position = Vector2(692, 226)
+faction = 1
+speed = 30.0
+acceleration = 5.0
+max_health = 5.0
+damage = 2.0
+
+[node name="R-BS-4" parent="Units" unique_id=1682841987 instance=ExtResource("1_abhxl")]
+position = Vector2(698, 351)
+faction = 1
+speed = 30.0
+acceleration = 5.0
+max_health = 5.0
+damage = 2.0
+
+[node name="R-BS-5" parent="Units" unique_id=811643381 instance=ExtResource("1_abhxl")]
+position = Vector2(569, 460)
+faction = 1
+speed = 30.0
+acceleration = 5.0
+max_health = 5.0
+damage = 2.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=171207175]
+position = Vector2(319, 193)
+
+[node name="Mouse Follower" parent="." unique_id=637497597 instance=ExtResource("2_g54tn")]
+
+[node name="Boundary" type="Area2D" parent="." unique_id=1290196898]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary" unique_id=1861348549]
+position = Vector2(653, 194)
+shape = SubResource("RectangleShape2D_f1574")
+debug_color = Color(0.69803923, 0.011764706, 0, 0.10980392)

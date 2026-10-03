@@ -14,3 +14,12 @@ enum Effect{
 	REGENERATION,
 	COWARDLY
 }
+
+
+var Units: Dictionary = {
+	"Basic Skeleton": {
+		"Shorthand": "BS",
+		"Path": "res://Entities/Units/basic_unit_test.tscn",
+		
+	}
+}

@@ -2,27 +2,59 @@
 
 [ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_w7rph"]
 [ext_resource type="Texture2D" uid="uid://bgn3w2hwx0ahh" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00.png" id="2_8m225"]
+[ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="3_ufywu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7rph"]
-radius = 7.0
-height = 24.0
+radius = 6.0
 
-[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462]
-texture_filter = 1
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1574"]
+radius = 14.0
+height = 40.0
+
+[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "HitboxSpawn", "CooldownTimer", "RangeCast", "Hurt")]
+scale = Vector2(0.5, 0.5)
+collision_layer = 0
+collision_mask = 27
 script = ExtResource("1_w7rph")
+speed = 10.0
+acceleration = 8.0
+max_health = 25.0
+damage = 5.0
+cooldown_min = 0.5
+cooldown_max = 1.5
+knockback_force = 2.0
+Sprite = NodePath("Sprite2D")
+HitboxSpawn = NodePath("Range/Hitbox Spawn")
+CooldownTimer = NodePath("Cooldown")
+RangeCast = NodePath("Range")
+Hurt = NodePath("Hurtbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1114960161]
-position = Vector2(0, 28)
+position = Vector2(0, 13)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_w7rph")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=311601955]
+position = Vector2(0, 2)
 texture = ExtResource("2_8m225")
+offset = Vector2(0, -16)
 
-[node name="Hitbox Spawn" type="Node2D" parent="." unique_id=130069617]
+[node name="Hurtbox" parent="." unique_id=2081307332 instance=ExtResource("3_ufywu")]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=117402254]
+shape = SubResource("CapsuleShape2D_f1574")
 
 [node name="Range" type="RayCast2D" parent="." unique_id=1767714874]
-position = Vector2(0, 12)
-rotation = -1.5707964
+target_position = Vector2(24, 0)
+collision_mask = 0
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Hitbox Spawn" type="Node2D" parent="Range" unique_id=130069617]
+position = Vector2(22, 0)
 
 [node name="Cooldown" type="Timer" parent="." unique_id=1953114253]
+wait_time = 0.1
+one_shot = true
+autostart = true

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dyjgmurckaguh"]
+
+[ext_resource type="Script" uid="uid://c5tcbu2lsfo8h" path="res://Components/mouse_follower.gd" id="1_4qxkb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
+
+[node name="Mouse Follower" type="Node2D" unique_id=637497597 node_paths=PackedStringArray("Area", "Cooldown")]
+process_mode = 3
+script = ExtResource("1_4qxkb")
+Area = NodePath("Area2D")
+Cooldown = NodePath("Timer")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1248681465]
+collision_layer = 0
+collision_mask = 212
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1410605806]
+shape = SubResource("CircleShape2D_f1574")
+
+[node name="Timer" type="Timer" parent="." unique_id=453183275]
+wait_time = 0.05
+one_shot = true
+autostart = true
