@@ -75,7 +75,7 @@ func _ready() -> void:
 	health = max_health
 	current_state = State.CHASE
 	
-	pass
+	Sprite.flip_h = sign(global_position.x) > 0
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:

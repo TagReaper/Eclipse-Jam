@@ -22,6 +22,6 @@ var Units: Dictionary = {
 	"Basic Skeleton": {
 		"Shorthand": "BS",
 		"Path": "res://Entities/Units/basic_unit_test.tscn",
-		
+		"Cost": ["Bones", 1]
 	}
 }

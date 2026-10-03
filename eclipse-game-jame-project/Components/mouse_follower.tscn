@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dyjgmurckaguh"]
 
 [ext_resource type="Script" uid="uid://c5tcbu2lsfo8h" path="res://Components/mouse_follower.gd" id="1_4qxkb"]
+[ext_resource type="Texture2D" uid="uid://82op52t0cp5m" path="res://Assets/UI/MediavelFree.png" id="2_3c1xd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
 
@@ -29,3 +30,11 @@ shape = SubResource("CircleShape2D_f1574")
 wait_time = 0.05
 one_shot = true
 autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1398580690]
+texture_filter = 1
+position = Vector2(0, 0.5)
+texture = ExtResource("2_3c1xd")
+hframes = 16
+vframes = 8
+frame = 94

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cuopk2ld3jl66"]
+
+[ext_resource type="PackedScene" uid="uid://cx7tgikucfsk2" path="res://Entities/Units/basic_unit_test.tscn" id="1_abhxl"]
+[ext_resource type="PackedScene" uid="uid://dyjgmurckaguh" path="res://Components/mouse_follower.tscn" id="2_g54tn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1574"]
+size = Vector2(616, 879)
+
+[node name="Test Lv 1" type="Node2D" unique_id=930342871]
+y_sort_enabled = true
+
+[node name="Boundary" type="Area2D" parent="." unique_id=1290196898]
+position = Vector2(-13, 0)
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary" unique_id=1861348549]
+position = Vector2(331, 0)
+shape = SubResource("RectangleShape2D_f1574")
+debug_color = Color(0.69803923, 0.011764706, 0, 0.10980392)
+
+[node name="Line2D" type="Line2D" parent="Boundary" unique_id=1193593473]
+position = Vector2(38, -189)
+points = PackedVector2Array(-20, 575, -20, -188)
+default_color = Color(1, 0, 0, 0.1764706)
+
+[node name="Mouse Follower" parent="." unique_id=637497597 node_paths=PackedStringArray("RedArea") instance=ExtResource("2_g54tn")]
+position = Vector2(-281, -30)
+RedArea = NodePath("../Boundary")
+resources = Dictionary[String, int]({
+"Bones": 6,
+"Flesh": 0,
+"Gilded Bones": 0,
+"Mossy Bones": 0,
+"Mythril Scrap": 0,
+"Tantalum Scrap": 0
+})
+
+[node name="Units" type="Node2D" parent="." unique_id=431631231]
+y_sort_enabled = true
+
+[node name="RED-BS-0" parent="Units" unique_id=1248488462 instance=ExtResource("1_abhxl")]
+position = Vector2(210, -155)
+collision_layer = 8
+faction = 1
+
+[node name="RED-BS-1" parent="Units" unique_id=650447839 instance=ExtResource("1_abhxl")]
+position = Vector2(205, -1)
+collision_layer = 8
+faction = 1
+
+[node name="RED-BS-2" parent="Units" unique_id=1799119077 instance=ExtResource("1_abhxl")]
+position = Vector2(204, 164)
+collision_layer = 8
+faction = 1
+
+[node name="RED-BS-3" parent="Units" unique_id=1292994528 instance=ExtResource("1_abhxl")]
+position = Vector2(340, -66)
+collision_layer = 8
+faction = 1
+
+[node name="RED-BS-4" parent="Units" unique_id=1441500341 instance=ExtResource("1_abhxl")]
+position = Vector2(327, 80)
+collision_layer = 8
+faction = 1
+
+[node name="RED-BS-5" parent="Units" unique_id=202465520 instance=ExtResource("1_abhxl")]
+position = Vector2(436, 2)
+collision_layer = 8
+faction = 1
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=171207175]
