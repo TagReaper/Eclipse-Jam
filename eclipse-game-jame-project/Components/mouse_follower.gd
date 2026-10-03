@@ -1,7 +1,10 @@
 extends Node2D
 
-@export var Area: Area2D
+@export var ZoneArea: Area2D
+@export var CollArea: Area2D
 @export var Cooldown: Timer
+@export var multiple_factions: bool = false
+@export var RedArea: Area2D
 
 var selected_unit: PackedScene
 var summon_num: int = 0
@@ -17,12 +20,28 @@ func _process(delta: float) -> void:
 		else:
 			Global.paused = true
 	
-	if Input.is_action_pressed("Summon") and Cooldown.is_stopped() and !Area.has_overlapping_areas():
-		selected_unit = load(unit.get("Path"))
-		var summon = selected_unit.instantiate()
-		summon.faction = Global.Faction.BLUE
-		summon.global_position = global_position
-		summon.name = Global.Faction.find_key(selected_faction) + "-" + unit.get("Shorthand") + "-" + str(summon_num)
-		get_parent().find_child("Units").add_child(summon)
-		summon_num += 1
-		Cooldown.start(0.01)
+	if Input.is_action_pressed("Summon") and Cooldown.is_stopped() and Global.paused:
+		if !multiple_factions:
+			if !CollArea.has_overlapping_areas() and !ZoneArea.has_overlapping_areas():
+				selected_unit = load(unit.get("Path"))
+				var summon = selected_unit.instantiate()
+				summon.faction = Global.Faction.BLUE
+				summon.global_position = global_position
+				summon.name = "BLUE-" + unit.get("Shorthand") + "-" + str(summon_num)
+				get_parent().find_child("Units").add_child(summon)
+				summon_num += 1
+				Cooldown.start(0.05)
+		else:
+			if !ZoneArea.has_overlapping_areas():
+				selected_faction = Global.Faction.BLUE
+			elif ZoneArea.overlaps_area(RedArea):
+				selected_faction = Global.Faction.RED
+			if !CollArea.has_overlapping_areas():
+				selected_unit = load(unit.get("Path"))
+				var summon = selected_unit.instantiate()
+				summon.faction = selected_faction
+				summon.global_position = global_position
+				summon.name = Global.Faction.find_key(selected_faction) + "-" + unit.get("Shorthand") + "-" + str(summon_num)
+				get_parent().find_child("Units").add_child(summon)
+				summon_num += 1
+				Cooldown.start(0.05)

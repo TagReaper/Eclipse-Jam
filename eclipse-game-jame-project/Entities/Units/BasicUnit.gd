@@ -172,7 +172,7 @@ func _animate_wobble(delta: float) -> void:
 	if current_state == State.CHASE:
 		vel = velocity.length()
 	else:
-		vel = 5
+		vel = 10
 	# Advance time scaled by speed
 	wobble_time += delta * vel
 	# Generate a smooth wave between -1 and 1

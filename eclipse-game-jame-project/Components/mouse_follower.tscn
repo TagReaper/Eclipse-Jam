@@ -4,17 +4,25 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
 
-[node name="Mouse Follower" type="Node2D" unique_id=637497597 node_paths=PackedStringArray("Area", "Cooldown")]
+[node name="Mouse Follower" type="Node2D" unique_id=637497597 node_paths=PackedStringArray("ZoneArea", "CollArea", "Cooldown")]
 process_mode = 3
 script = ExtResource("1_4qxkb")
-Area = NodePath("Area2D")
+ZoneArea = NodePath("Area2D")
+CollArea = NodePath("Area2D2")
 Cooldown = NodePath("Timer")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1248681465]
 collision_layer = 0
-collision_mask = 212
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1410605806]
+shape = SubResource("CircleShape2D_f1574")
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=1827110577]
+collision_layer = 0
+collision_mask = 84
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=865319578]
 shape = SubResource("CircleShape2D_f1574")
 
 [node name="Timer" type="Timer" parent="." unique_id=453183275]
