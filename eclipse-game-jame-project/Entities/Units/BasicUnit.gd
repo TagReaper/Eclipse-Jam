@@ -19,7 +19,10 @@ class_name BasicUnit extends CharacterBody2D
 @export var HitboxSpawn: Node2D
 @export var CooldownTimer: Timer
 @export var RangeCast: RayCast2D
+
+@export_category("Hit/Hurt Components")
 @export var Hurt: Hurtbox
+@export var HitboxShape: Shape2D
 
 # Internal Variables
 var can_move: bool = true
@@ -96,33 +99,40 @@ func _physics_process(delta: float) -> void:
 	if target and target.health <= 0:
 		target = null
 	
-	# Setting Direction
-	direction = get_direction()
-	RangeCast.rotation = atan2(direction.y,direction.x)
-	
-	if RangeCast.is_colliding():
-		if RangeCast.get_collider().get_parent() == target:
-			velocity = Vector2.ZERO
+	if !Global.paused:
+		# Setting Direction
+		direction = get_direction()
+		RangeCast.rotation = atan2(direction.y,direction.x)
+		
+		if RangeCast.is_colliding():
+			if RangeCast.get_collider():
+				if RangeCast.get_collider().get_parent() == target:
+					velocity = velocity.move_toward(Vector2.ZERO, acceleration)
+				else:
+					target = RangeCast.get_collider().get_parent()
+				_within_range()
 		else:
-			target = RangeCast.get_collider().get_parent()
-		_within_range()
-	else:
-		# Setting Velocity
-		velocity.x = move_toward(velocity.x, direction.x * speed * speed_multiplier, acceleration)
-		velocity.y = move_toward(velocity.y, direction.y * speed * speed_multiplier, acceleration)
-	
-	# End of function
-	tick += 1
-	_animate_wobble(delta)
-	move_and_slide()
+			# Setting Velocity
+			velocity = velocity.move_toward(direction * speed * speed_multiplier, acceleration)
+		
+		# End of function
+		tick += 1
+		_animate_wobble(delta)
+		move_and_slide()
 
 func _within_range() -> void:
 	# Code for what happens when the Unit get's within range
 	if CooldownTimer.is_stopped():
+		_attack()
 		var tween = create_tween()
-		tween.tween_property(Sprite, "scale", Vector2(1.1,1.1), 0.1)
-		tween.tween_property(Sprite, "scale", Vector2(1,1), 0.1)
+		tween.tween_property(Sprite, "scale", Vector2(1.1,1.1), 0.03)
+		tween.tween_property(Sprite, "scale", Vector2(0.9,0.9), 0.03)
+		tween.tween_property(Sprite, "scale", Vector2(1,1), 0.03)
 		CooldownTimer.start(randf_range(cooldown_min,cooldown_max))
+
+func _attack() -> void:
+	var hitbox = Hitbox.new(damage, knockback_force, HitboxShape, faction)
+	HitboxSpawn.add_child(hitbox)
 
 func get_direction() -> Vector2:
 	# Uses target location to get direction
@@ -148,6 +158,7 @@ func _find_target() -> void:
 		if child.faction != faction:
 			var child_glob_pos: Vector2 = child.global_position
 			if (child_glob_pos - glob_pos).length() < loc.length():
+				loc = child_glob_pos - glob_pos
 				target = child
 	
 	if !target:

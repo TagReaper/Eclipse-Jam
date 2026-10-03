@@ -1,5 +1,7 @@
 extends Node
 
+var paused: bool = true
+
 enum Faction{
 	BLUE,
 	RED,

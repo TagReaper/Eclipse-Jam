@@ -11,6 +11,12 @@ var unit: Dictionary = Global.Units.get("Basic Skeleton")
 func _process(delta: float) -> void:
 	global_position = get_global_mouse_position()
 	
+	if Input.is_action_just_pressed("Pause"):
+		if Global.paused:
+			Global.paused = false
+		else:
+			Global.paused = true
+	
 	if Input.is_action_pressed("Summon") and Cooldown.is_stopped() and !Area.has_overlapping_areas():
 		selected_unit = load(unit.get("Path"))
 		var summon = selected_unit.instantiate()
