@@ -141,4 +141,5 @@ func _load_node_state() -> void:
 	get_parent().find_child("Units", false, false).free()
 	var restored = Unit_State.instantiate()
 	restored.name = "Units"
+	restored.y_sort_enabled = true
 	get_parent().add_child(restored)

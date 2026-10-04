@@ -15,11 +15,12 @@ radius = 8.0
 radius = 14.0
 height = 40.0
 
-[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "HitboxSpawn", "CooldownTimer", "RangeCast", "Shadow", "SearchTimer", "Hurt")]
+[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "Shadow", "SearchTimer", "CooldownTimer", "RangeCast", "HitboxSpawn", "Hurt")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 27
 script = ExtResource("1_w7rph")
+unit_id = "BS1"
 speed = 15.0
 acceleration = 8.0
 max_health = 5.0
@@ -28,11 +29,12 @@ cooldown_min = 0.5
 cooldown_max = 1.5
 knockback_force = 2.5
 Sprite = NodePath("Sprite2D")
-HitboxSpawn = NodePath("Range/Hitbox Spawn")
-CooldownTimer = NodePath("Cooldown")
-RangeCast = NodePath("Range")
+shadow_offset = 4
 Shadow = NodePath("Shadow")
 SearchTimer = NodePath("SearchTimer")
+CooldownTimer = NodePath("Cooldown")
+RangeCast = NodePath("Range")
+HitboxSpawn = NodePath("Range/Hitbox Spawn")
 Hurt = NodePath("Hurtbox")
 HitboxShape = SubResource("CircleShape2D_f1574")
 

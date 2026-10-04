@@ -15,15 +15,18 @@ class_name BasicUnit extends CharacterBody2D
 @export var cooldown_max: float
 @export var knockback_force: float
 
-@export_category("Node References")
+@export_category("Sprite")
 @export var Sprite: Sprite2D
-@export var HitboxSpawn: Node2D
-@export var CooldownTimer: Timer
-@export var RangeCast: RayCast2D
+@export var shadow_offset: int = 0
 @export var Shadow: Sprite2D
 @export var SearchTimer: Timer
 
+@export_category("Node References")
+@export var CooldownTimer: Timer
+@export var RangeCast: RayCast2D
+
 @export_category("Hit/Hurt Components")
+@export var HitboxSpawn: Node2D
 @export var Hurt: Hurtbox
 @export var HitboxShape: Shape2D
 
@@ -83,10 +86,9 @@ func _ready() -> void:
 	Sprite.flip_h = sign(global_position.x) > 0
 	Sprite.get_child(0).flip_h = Sprite.flip_h
 	if Sprite.flip_h:
-		Shadow.position.x = 4
+		Shadow.position.x = shadow_offset
 	else:
-		Shadow.position.x = -4
-	
+		Shadow.position.x = -shadow_offset
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
@@ -154,13 +156,13 @@ func get_direction() -> Vector2:
 					return (target.global_position - global_position).normalized()
 				else:
 					_find_target()
-					return (target.global_position - global_position).normalized()
 			State.FLEE:
 				if target:
 					return -(target.global_position - global_position).normalized()
 				else:
 					_find_target()
-					return -(target.global_position - global_position).normalized()
+			State.CELEBRATE:
+				return Vector2.ZERO
 	return direction
 
 func _find_target() -> void:
@@ -176,7 +178,6 @@ func _find_target() -> void:
 				loc = child_glob_pos - glob_pos
 				target = child
 	if !target:
-		target = self
 		current_state = State.CELEBRATE
 
 # Animating the little guy moving back and forth
@@ -196,15 +197,14 @@ func _animate_wobble(delta: float) -> void:
 	if direction.x < 0 and !Sprite.flip_h:
 		Sprite.flip_h = true
 		Sprite.get_child(0).flip_h = Sprite.flip_h
-		Shadow.position.x = 4
+		Shadow.position.x = shadow_offset
 	elif direction.x > 0 and Sprite.flip_h:
 		Sprite.flip_h = false
 		Sprite.get_child(0).flip_h = Sprite.flip_h
-		Shadow.position.x = -4
+		Shadow.position.x = -shadow_offset
 	
 	if current_state == State.CELEBRATE:
-		var sca = 1 + abs(angle_sin) * 0.2
-		Sprite.scale = Vector2(sca, sca)
+		Sprite.scale = Vector2(1.2 - abs(angle_sin) * 0.2, 1 + abs(angle_sin) * 0.15)
 
 func _animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Attack":
