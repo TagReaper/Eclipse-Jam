@@ -2,6 +2,7 @@ class_name BasicUnit extends CharacterBody2D
 
 @export_category("Identifier")
 @export var faction: Global.Faction
+@export var unit_id: String
 
 @export_category("Movement")
 @export var speed: float

@@ -20,6 +20,7 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 27
 script = ExtResource("1_w7rph")
+UnitID = "BS1"
 speed = 15.0
 acceleration = 8.0
 max_health = 5.0

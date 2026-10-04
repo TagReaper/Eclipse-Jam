@@ -72,6 +72,7 @@ func _process(delta: float) -> void:
 					summon.faction = Global.Faction.BLUE
 					summon.global_position = global_position + Vector2(0,-8)
 					summon.name = "BLUE-" + Unit.Shorthand + "-" + str(summon_num)
+					summon.unit_id = Unit.ID
 					get_parent().find_child("Units", false, false).add_child(summon)
 					summon_num += 1
 					Cooldown.start(0.05)
@@ -88,9 +89,25 @@ func _process(delta: float) -> void:
 				summon.faction = selected_faction
 				summon.global_position = global_position + Vector2(0,-8)
 				summon.name = Global.Faction.find_key(selected_faction) + "-" + Unit.Shorthand + "-" + str(summon_num)
+				summon.unit_id = Unit.ID
 				get_parent().find_child("Units").add_child(summon)
 				summon_num += 1
 				Cooldown.start(0.05)
+	
+	if Input.is_action_pressed("RemoveSummon") and CollArea.has_overlapping_areas():
+		if !sandbox:
+			if !ZoneArea.has_overlapping_areas():
+				var colls = CollArea.get_overlapping_areas()
+				
+				for unit in colls:
+					var cost: Array = Global.Units.get(unit.get_parent().unit_id).Cost
+					resources[cost[0]] += cost[1]
+					unit.get_parent().queue_free()
+		else:
+			var colls = CollArea.get_overlapping_areas()
+			
+			for unit in colls:
+				unit.get_parent().queue_free()
 
 func _set_unit(_name: String) -> void:
 	Unit = Global.Units.get(_name)
