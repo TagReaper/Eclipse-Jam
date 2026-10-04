@@ -19,6 +19,8 @@ class_name BasicUnit extends CharacterBody2D
 @export var HitboxSpawn: Node2D
 @export var CooldownTimer: Timer
 @export var RangeCast: RayCast2D
+@export var Shadow: Sprite2D
+@export var SearchTimer: Timer
 
 @export_category("Hit/Hurt Components")
 @export var Hurt: Hurtbox
@@ -75,8 +77,15 @@ func _ready() -> void:
 	health = max_health
 	current_state = State.CHASE
 	
+	SearchTimer.start(randf_range(1,5))
+	
 	Sprite.flip_h = sign(global_position.x) > 0
 	Sprite.get_child(0).flip_h = Sprite.flip_h
+	if Sprite.flip_h:
+		Shadow.position.x = 4
+	else:
+		Shadow.position.x = -4
+	
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
@@ -165,7 +174,6 @@ func _find_target() -> void:
 			if (child_glob_pos - glob_pos).length() < loc.length():
 				loc = child_glob_pos - glob_pos
 				target = child
-	
 	if !target:
 		target = self
 		current_state = State.CELEBRATE
@@ -187,9 +195,11 @@ func _animate_wobble(delta: float) -> void:
 	if direction.x < 0 and !Sprite.flip_h:
 		Sprite.flip_h = true
 		Sprite.get_child(0).flip_h = Sprite.flip_h
+		Shadow.position.x = 4
 	elif direction.x > 0 and Sprite.flip_h:
 		Sprite.flip_h = false
 		Sprite.get_child(0).flip_h = Sprite.flip_h
+		Shadow.position.x = -4
 	
 	if current_state == State.CELEBRATE:
 		var sca = 1 + abs(angle_sin) * 0.2
@@ -201,3 +211,7 @@ func _animation_finished(anim_name: StringName) -> void:
 
 func _death():
 	queue_free()
+
+func _on_search_timer_timeout() -> void:
+	_find_target()
+	SearchTimer.start(5)

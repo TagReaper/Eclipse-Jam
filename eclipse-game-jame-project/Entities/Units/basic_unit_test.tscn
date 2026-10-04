@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cx7tgikucfsk2"]
 
 [ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_w7rph"]
+[ext_resource type="Texture2D" uid="uid://dty633kd048nl" path="res://Assets/Art/Units/Shadow.png" id="2_llvkh"]
 [ext_resource type="Texture2D" uid="uid://bkpcmk8w3kjbv" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00-Sheet.png" id="2_ufywu"]
 [ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="3_ufywu"]
 
@@ -14,12 +15,12 @@ radius = 8.0
 radius = 14.0
 height = 40.0
 
-[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "HitboxSpawn", "CooldownTimer", "RangeCast", "Hurt")]
+[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "HitboxSpawn", "CooldownTimer", "RangeCast", "Shadow", "SearchTimer", "Hurt")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 27
 script = ExtResource("1_w7rph")
-speed = 20.0
+speed = 15.0
 acceleration = 8.0
 max_health = 5.0
 damage = 2.0
@@ -30,6 +31,8 @@ Sprite = NodePath("Sprite2D")
 HitboxSpawn = NodePath("Range/Hitbox Spawn")
 CooldownTimer = NodePath("Cooldown")
 RangeCast = NodePath("Range")
+Shadow = NodePath("Shadow")
+SearchTimer = NodePath("SearchTimer")
 Hurt = NodePath("Hurtbox")
 HitboxShape = SubResource("CircleShape2D_f1574")
 
@@ -37,6 +40,10 @@ HitboxShape = SubResource("CircleShape2D_f1574")
 position = Vector2(0, 10)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_w7rph")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1182906912]
+position = Vector2(-4, 14)
+texture = ExtResource("2_llvkh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=311601955]
 position = Vector2(0, 2)
@@ -70,3 +77,9 @@ position = Vector2(18, 0)
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="SearchTimer" type="Timer" parent="." unique_id=1690220607]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="SearchTimer" to="." method="_on_search_timer_timeout"]

@@ -13,3 +13,7 @@ func _recieve_hit(_damage: float, _knockback: float, _direction: Vector2):
 		
 		# Knockback
 		owner.velocity = _direction * _knockback * 32 / knockback_resisitance
+		
+		owner.Sprite.frame = 1
+		await get_tree().create_timer(0.1).timeout
+		owner.Sprite.frame = 0

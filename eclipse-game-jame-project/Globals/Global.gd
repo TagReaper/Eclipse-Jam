@@ -19,7 +19,8 @@ enum Effect{
 
 
 var Units: Dictionary = {
-	"Basic Skeleton": {
+	"BS1": {
+		"Name": "Basic Unarmed Skeleton",
 		"Shorthand": "BS",
 		"Path": "res://Entities/Units/basic_unit_test.tscn",
 		"Cost": ["Bones", 1]

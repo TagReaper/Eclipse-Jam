@@ -40,32 +40,32 @@ resources = Dictionary[String, int]({
 y_sort_enabled = true
 
 [node name="RED-BS-0" parent="Units" unique_id=1248488462 instance=ExtResource("1_abhxl")]
-position = Vector2(210, -155)
+position = Vector2(192, -32)
 collision_layer = 8
 faction = 1
 
 [node name="RED-BS-1" parent="Units" unique_id=650447839 instance=ExtResource("1_abhxl")]
-position = Vector2(205, -1)
+position = Vector2(128, 0)
 collision_layer = 8
 faction = 1
 
 [node name="RED-BS-2" parent="Units" unique_id=1799119077 instance=ExtResource("1_abhxl")]
-position = Vector2(204, 164)
+position = Vector2(192, 32)
 collision_layer = 8
 faction = 1
 
 [node name="RED-BS-3" parent="Units" unique_id=1292994528 instance=ExtResource("1_abhxl")]
-position = Vector2(340, -66)
+position = Vector2(320, -64)
 collision_layer = 8
 faction = 1
 
 [node name="RED-BS-4" parent="Units" unique_id=1441500341 instance=ExtResource("1_abhxl")]
-position = Vector2(327, 80)
+position = Vector2(320, 64)
 collision_layer = 8
 faction = 1
 
 [node name="RED-BS-5" parent="Units" unique_id=202465520 instance=ExtResource("1_abhxl")]
-position = Vector2(436, 2)
+position = Vector2(256, 0)
 collision_layer = 8
 faction = 1
 
