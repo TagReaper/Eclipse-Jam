@@ -65,32 +65,40 @@ func _process(delta: float) -> void:
 				if resources[cost[0]] < cost[1]:
 					print("Not Enough Resources to summon ", Unit.Name)
 				else:
+					var g_pos: Vector2 = global_position
+					if g_pos.x > get_parent().find_child("Boundary").position.x:
+						g_pos.x = get_parent().find_child("Boundary").position.x - 8
 					print("\nSummoning ", Global.Faction.find_key(selected_faction), " ", Unit.Name, ": ", cost[1], " ", cost[0], " used...")
 					resources[cost[0]] -= cost[1]
 					print("You now have ", resources[cost[0]], " ", cost[0], " remaining.")
 					var summon = selected_unit.instantiate()
 					summon.faction = Global.Faction.BLUE
-					summon.global_position = global_position + Vector2(0,-8)
+					summon.global_position = g_pos + Vector2(0,-8)
 					summon.name = "BLUE-" + Unit.Shorthand + "-" + str(summon_num)
 					summon.unit_id = Unit.ID
 					get_parent().find_child("Units", false, false).add_child(summon)
 					summon_num += 1
 					Cooldown.start(0.05)
 		else:
+			var g_pos: Vector2 = global_position
 			if !ZoneArea.has_overlapping_areas():
 				selected_faction = Global.Faction.BLUE
+				if g_pos.x > get_parent().find_child("Boundary").position.x:
+					g_pos.x = get_parent().find_child("Boundary").position.x - 8
 			elif ZoneArea.overlaps_area(RedArea):
 				selected_faction = Global.Faction.RED
+				if g_pos.x < get_parent().find_child("Boundary").position.x:
+					g_pos.x = get_parent().find_child("Boundary").position.x + 8
 			if !CollArea.has_overlapping_areas():
 				print("\nSummoning ", Global.Faction.find_key(selected_faction), " ", Unit.Name, ": No resources used...")
 				print("Sandbox mode is enabled.")
 				selected_unit = load(Unit.Path)
 				var summon = selected_unit.instantiate()
 				summon.faction = selected_faction
-				summon.global_position = global_position + Vector2(0,-8)
+				summon.global_position = g_pos + Vector2(0,-8)
 				summon.name = Global.Faction.find_key(selected_faction) + "-" + Unit.Shorthand + "-" + str(summon_num)
 				summon.unit_id = Unit.ID
-				get_parent().find_child("Units").add_child(summon)
+				get_parent().find_child("Units", false, false).add_child(summon)
 				summon_num += 1
 				Cooldown.start(0.05)
 	

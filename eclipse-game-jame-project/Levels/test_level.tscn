@@ -10,17 +10,16 @@ size = Vector2(616, 879)
 y_sort_enabled = true
 
 [node name="Boundary" type="Area2D" parent="." unique_id=1290196898]
-position = Vector2(-13, 0)
 collision_layer = 128
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary" unique_id=1861348549]
-position = Vector2(331, 0)
+position = Vector2(312, 3)
 shape = SubResource("RectangleShape2D_f1574")
 debug_color = Color(0.69803923, 0.011764706, 0, 0.10980392)
 
 [node name="Line2D" type="Line2D" parent="Boundary" unique_id=1193593473]
-position = Vector2(38, -189)
+position = Vector2(19, -186)
 points = PackedVector2Array(-20, 575, -20, -188)
 default_color = Color(1, 0, 0, 0.1764706)
 
