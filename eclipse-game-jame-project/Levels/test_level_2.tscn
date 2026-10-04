@@ -4,9 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://cx7tgikucfsk2" path="res://Entities/Units/basic_unit_test.tscn" id="2_0jec4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1574"]
-size = Vector2(616, 879)
+size = Vector2(668, 879)
 
-[node name="Test Lv 1" type="Node2D" unique_id=930342871]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lh1fq"]
+size = Vector2(608, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jec4"]
+size = Vector2(248, 97)
+
+[node name="Test Lv 2" type="Node2D" unique_id=930342871]
 y_sort_enabled = true
 
 [node name="Boundary" type="Area2D" parent="." unique_id=1290196898]
@@ -14,7 +20,7 @@ collision_layer = 128
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary" unique_id=1861348549]
-position = Vector2(312, 3)
+position = Vector2(338, 3)
 shape = SubResource("RectangleShape2D_f1574")
 debug_color = Color(0.69803923, 0.011764706, 0, 0.10980392)
 
@@ -47,6 +53,8 @@ faction = 1
 position = Vector2(128, 0)
 collision_layer = 8
 faction = 1
+max_health = 50.0
+knockback_force = 3.0
 
 [node name="RED-BS-2" parent="Units" unique_id=1799119077 instance=ExtResource("2_0jec4")]
 position = Vector2(192, 32)
@@ -99,3 +107,15 @@ collision_layer = 8
 faction = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=171207175]
+
+[node name="UI Boundary" type="Area2D" parent="." unique_id=41232283]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI Boundary" unique_id=724091219]
+position = Vector2(0, 300)
+shape = SubResource("RectangleShape2D_lh1fq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="UI Boundary" unique_id=190779630]
+position = Vector2(4, -312.5)
+shape = SubResource("RectangleShape2D_0jec4")

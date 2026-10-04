@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bo6qcoy60aneh" path="res://Components/UI/active_always.tscn" id="3_bdjl3"]
 [ext_resource type="PackedScene" uid="uid://blqqpmfcxjki1" path="res://Components/UI/active_before.tscn" id="4_4nt7d"]
 [ext_resource type="PackedScene" uid="uid://d3i2smwjnr40o" path="res://Components/UI/end_state.tscn" id="5_lbvka"]
+[ext_resource type="PackedScene" uid="uid://b1x7mx4avyq4d" path="res://Components/UI/pause_menu.tscn" id="6_4nt7d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
 
@@ -48,16 +49,41 @@ frame = 94
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=874045540]
 
 [node name="UI Controller" type="Control" parent="CanvasLayer" unique_id=1258128854]
+z_index = 2
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Active_Always" parent="CanvasLayer/UI Controller" unique_id=837598908 instance=ExtResource("3_bdjl3")]
-layout_mode = 0
+layout_mode = 1
 
 [node name="Active_Before" parent="CanvasLayer/UI Controller" unique_id=1668887134 instance=ExtResource("4_4nt7d")]
-layout_mode = 0
+layout_mode = 1
+offset_top = -118.0
 
 [node name="End_State" parent="CanvasLayer/UI Controller" unique_id=1455088444 instance=ExtResource("5_lbvka")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenu" parent="CanvasLayer/UI Controller" unique_id=1170102437 instance=ExtResource("6_4nt7d")]
+visible = false
 layout_mode = 0
+
+[connection signal="mouse_entered" from="CanvasLayer/UI Controller/Active_Always" to="." method="_on_active_always_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/UI Controller/Active_Always" to="." method="_on_active_always_mouse_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/UI Controller/Active_Before" to="." method="_on_active_before_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/UI Controller/Active_Before" to="." method="_on_active_before_mouse_exited"]

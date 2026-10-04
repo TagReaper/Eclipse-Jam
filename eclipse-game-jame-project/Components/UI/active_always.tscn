@@ -22,16 +22,20 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Active_Always" type="Control" unique_id=837598908 node_paths=PackedStringArray("BlueCountDisplay", "RedCountDisplay", "PauseIndicator")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = 96.0
+grow_horizontal = 2
 script = ExtResource("1_iggl2")
 BlueCountDisplay = NodePath("Blue")
 RedCountDisplay = NodePath("Red")
 PauseIndicator = NodePath("Play-Pause Indicator")
 
 [node name="BG Sprites" type="Node2D" parent="." unique_id=47366775]
-position = Vector2(640, 360)
+position = Vector2(128, 360)
 
 [node name="Left" type="Sprite2D" parent="BG Sprites" unique_id=851644944]
 texture_filter = 1
@@ -85,10 +89,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 468.0
-offset_top = 14.0
-offset_right = 576.0
-offset_bottom = 42.0
+offset_left = -153.0
+offset_top = -14.0
+offset_right = -45.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "0"
@@ -102,10 +106,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 668.0
-offset_top = 14.0
-offset_right = 776.0
-offset_bottom = 42.0
+offset_left = 47.0
+offset_top = -14.0
+offset_right = 155.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "0"
@@ -113,7 +117,7 @@ label_settings = SubResource("LabelSettings_iggl2")
 
 [node name="Play-Pause Indicator" type="Sprite2D" parent="." unique_id=1321250967]
 texture_filter = 1
-position = Vector2(643, 44)
+position = Vector2(131, 44)
 scale = Vector2(3, 3)
 texture = ExtResource("3_ckigy")
 hframes = 16

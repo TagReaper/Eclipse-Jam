@@ -1,7 +1,271 @@
 [gd_scene format=3 uid="uid://blqqpmfcxjki1"]
 
-[node name="Active_Before" type="Control" unique_id=1668887134]
+[ext_resource type="FontFile" uid="uid://bbddi8r81blfw" path="res://Assets/Fonts/BoldPixels.ttf" id="1_4x41d"]
+[ext_resource type="Script" uid="uid://cueald00ylhsh" path="res://Components/UI/active_before.gd" id="1_d8tok"]
+[ext_resource type="Texture2D" uid="uid://djhihuao7wf8g" path="res://Assets/UI/Resource-01.png" id="2_ui1ur"]
+[ext_resource type="Texture2D" uid="uid://dbqh66aes0ldq" path="res://Assets/UI/Units/SkeletonUnit-01.png" id="3_o16q5"]
+[ext_resource type="Texture2D" uid="uid://bx1s6wthu5ic7" path="res://Assets/UI/Resource-02.png" id="3_skajl"]
+[ext_resource type="Texture2D" uid="uid://coj2jw0cd36he" path="res://Assets/UI/Units/SkeletonUnit-02.png" id="4_6e6kb"]
+[ext_resource type="Texture2D" uid="uid://cvfggutvmqbvi" path="res://Assets/UI/Units/SkeletonUnit-07.png" id="4_ajqbp"]
+[ext_resource type="Texture2D" uid="uid://cba15ymsjrn0k" path="res://Assets/UI/Resource-03.png" id="4_d8tok"]
+[ext_resource type="Texture2D" uid="uid://xfheuu4krehh" path="res://Assets/UI/Resource-04.png" id="5_7o4fn"]
+[ext_resource type="Texture2D" uid="uid://brwhfah34u1f7" path="res://Assets/UI/Units/SkeletonUnit-03.png" id="5_ajqbp"]
+[ext_resource type="Texture2D" uid="uid://cprheujt5umgf" path="res://Assets/UI/Units/SkeletonUnit-04.png" id="6_3islu"]
+[ext_resource type="Texture2D" uid="uid://dbdr160ru58mw" path="res://Assets/UI/Resource-05.png" id="6_4opqf"]
+[ext_resource type="Texture2D" uid="uid://pe7h4hur0mxu" path="res://Assets/UI/Resource-06.png" id="7_53ujv"]
+[ext_resource type="Texture2D" uid="uid://sks8dqpweims" path="res://Assets/UI/Units/SkeletonUnit-05.png" id="7_l6at2"]
+[ext_resource type="Texture2D" uid="uid://cf3dqmh7pomho" path="res://Assets/UI/Units/SkeletonUnit-06.png" id="8_vbp2r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_735ne"]
+bg_color = Color(0.3764706, 0.3764706, 0.3764706, 0.31764707)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui1ur"]
+bg_color = Color(0.5019608, 0.5019608, 0.5019608, 0.31764707)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4x41d"]
+bg_color = Color(0.2520276, 0.25202766, 0.25202757, 0.31764707)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="Theme" id="Theme_4x41d"]
+TabContainer/constants/outline_size = 8
+TabContainer/constants/side_margin = 8
+TabContainer/constants/tab_separation = 16
+TabContainer/font_sizes/font_size = 24
+TabContainer/fonts/font = ExtResource("1_4x41d")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_735ne")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ui1ur")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_4x41d")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ksprr"]
+font = ExtResource("1_4x41d")
+font_size = 24
+font_color = Color(0.85484016, 0.9204115, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[node name="Active_Before" type="Control" unique_id=1668887134 node_paths=PackedStringArray("Bones", "BonesLabel", "Flesh", "FleshLabel", "MossyBones", "MossyBonesLabel", "GildedBones", "GildedBonesLabel", "MythrilScrap", "MythrilScrapLabel", "TantalumScrap", "TantalumScrapLabel")]
+texture_filter = 1
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -304.0
+offset_top = -120.0
+offset_right = 304.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_d8tok")
+Bones = NodePath("Resource Container/Bones")
+BonesLabel = NodePath("Resource Container/Bones/Label")
+Flesh = NodePath("Resource Container/Flesh")
+FleshLabel = NodePath("Resource Container/Flesh/Label")
+MossyBones = NodePath("Resource Container/Mossy Bones")
+MossyBonesLabel = NodePath("Resource Container/Mossy Bones/Label")
+GildedBones = NodePath("Resource Container/Gilded Bones")
+GildedBonesLabel = NodePath("Resource Container/Gilded Bones/Label")
+MythrilScrap = NodePath("Resource Container/Mythril")
+MythrilScrapLabel = NodePath("Resource Container/Mythril/Label")
+TantalumScrap = NodePath("Resource Container/Tantalum")
+TantalumScrapLabel = NodePath("Resource Container/Tantalum/Label")
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=577188436]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -112.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 0
+theme = SubResource("Theme_4x41d")
+current_tab = 0
+
+[node name="Skeletons" type="TabBar" parent="TabContainer" unique_id=1124164269]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Skeletons" unique_id=356734767]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -32.0
+offset_right = 252.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=203565595]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_o16q5")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="TextureButton2" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1824689485]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("4_6e6kb")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="TextureButton3" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=954140358]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("5_ajqbp")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="TextureButton4" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1533838302]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("6_3islu")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="TextureButton5" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=2699043]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("7_l6at2")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="TextureButton6" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1546195385]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("8_vbp2r")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Zombies" type="TabBar" parent="TabContainer" unique_id=751535393]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Mossy" type="TabBar" parent="TabContainer" unique_id=924338760]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Gilded" type="TabBar" parent="TabContainer" unique_id=628430234]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Mythril" type="TabBar" parent="TabContainer" unique_id=1001522907]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="Tantalum" type="TabBar" parent="TabContainer" unique_id=2042578926]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="Resource Container" type="VBoxContainer" parent="." unique_id=578680902]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -403.0
+offset_right = -240.0
+offset_bottom = -251.0
+grow_vertical = 2
+
+[node name="Bones" type="HBoxContainer" parent="Resource Container" unique_id=1106703689]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resource Container/Bones" unique_id=1398890237]
+layout_mode = 2
+texture = ExtResource("2_ui1ur")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Resource Container/Bones" unique_id=1624096538]
+layout_mode = 2
+text = ": 1"
+label_settings = SubResource("LabelSettings_ksprr")
+
+[node name="Flesh" type="HBoxContainer" parent="Resource Container" unique_id=821617819]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resource Container/Flesh" unique_id=2053183948]
+layout_mode = 2
+texture = ExtResource("3_skajl")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Resource Container/Flesh" unique_id=453218037]
+layout_mode = 2
+text = ": 1"
+label_settings = SubResource("LabelSettings_ksprr")
+
+[node name="Mossy Bones" type="HBoxContainer" parent="Resource Container" unique_id=1587016362]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resource Container/Mossy Bones" unique_id=1405449301]
+layout_mode = 2
+texture = ExtResource("4_d8tok")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Resource Container/Mossy Bones" unique_id=1421322395]
+layout_mode = 2
+text = ": 1"
+label_settings = SubResource("LabelSettings_ksprr")
+
+[node name="Gilded Bones" type="HBoxContainer" parent="Resource Container" unique_id=1942018896]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resource Container/Gilded Bones" unique_id=289626943]
+layout_mode = 2
+texture = ExtResource("5_7o4fn")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Resource Container/Gilded Bones" unique_id=1565199925]
+layout_mode = 2
+text = ": 1"
+label_settings = SubResource("LabelSettings_ksprr")
+
+[node name="Mythril" type="HBoxContainer" parent="Resource Container" unique_id=2088764098]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resource Container/Mythril" unique_id=31791718]
+layout_mode = 2
+texture = ExtResource("6_4opqf")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Resource Container/Mythril" unique_id=982372451]
+layout_mode = 2
+text = ": 1"
+label_settings = SubResource("LabelSettings_ksprr")
+
+[node name="Tantalum" type="HBoxContainer" parent="Resource Container" unique_id=555153058]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resource Container/Tantalum" unique_id=470561447]
+layout_mode = 2
+texture = ExtResource("7_53ujv")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Resource Container/Tantalum" unique_id=1631763246]
+layout_mode = 2
+text = ": 1"
+label_settings = SubResource("LabelSettings_ksprr")
+
+[connection signal="mouse_entered" from="TabContainer" to="." method="_on_tab_container_mouse_entered"]

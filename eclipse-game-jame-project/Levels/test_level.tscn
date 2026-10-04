@@ -4,7 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://dyjgmurckaguh" path="res://Components/mouse_follower.tscn" id="2_g54tn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1574"]
-size = Vector2(616, 879)
+size = Vector2(788, 879)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie5d1"]
+size = Vector2(608, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00vsl"]
+size = Vector2(248, 97)
 
 [node name="Test Lv 1" type="Node2D" unique_id=930342871]
 y_sort_enabled = true
@@ -14,7 +20,7 @@ collision_layer = 128
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary" unique_id=1861348549]
-position = Vector2(312, 3)
+position = Vector2(398, 3)
 shape = SubResource("RectangleShape2D_f1574")
 debug_color = Color(0.69803923, 0.011764706, 0, 0.10980392)
 
@@ -69,3 +75,15 @@ collision_layer = 8
 faction = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=171207175]
+
+[node name="UI Boundary" type="Area2D" parent="." unique_id=955020747]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI Boundary" unique_id=824220108]
+position = Vector2(0, 300)
+shape = SubResource("RectangleShape2D_ie5d1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="UI Boundary" unique_id=1186656253]
+position = Vector2(4, -312.5)
+shape = SubResource("RectangleShape2D_00vsl")

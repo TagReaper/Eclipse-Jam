@@ -5,7 +5,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7t7j1"]
 size = Vector2(659, 879)
 
-[node name="Test Lv 1" type="Node2D" unique_id=930342871]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fukds"]
+size = Vector2(608, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o45c4"]
+size = Vector2(248, 97)
+
+[node name="Sandbox" type="Node2D" unique_id=930342871]
 y_sort_enabled = true
 
 [node name="Boundary" type="Area2D" parent="." unique_id=1874761743]
@@ -23,12 +29,13 @@ position = Vector2(20, -186)
 points = PackedVector2Array(-20, 575, -20, -188)
 default_color = Color(1, 0, 0, 0.1764706)
 
-[node name="Mouse Follower" parent="." unique_id=637497597 node_paths=PackedStringArray("RedArea") instance=ExtResource("1_fukds")]
+[node name="Mouse Follower" parent="." unique_id=637497597 node_paths=PackedStringArray("RedArea", "UIArea") instance=ExtResource("1_fukds")]
 position = Vector2(-281, -30)
 sandbox = true
 RedArea = NodePath("../Boundary")
+UIArea = NodePath("../UI Boundary")
 resources = Dictionary[String, int]({
-"Bones": 6,
+"Bones": 0,
 "Flesh": 0,
 "Gilded Bones": 0,
 "Mossy Bones": 0,
@@ -41,3 +48,15 @@ y_sort_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=171207175]
 position = Vector2(2, 0)
+
+[node name="UI Boundary" type="Area2D" parent="." unique_id=563120667]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI Boundary" unique_id=1062908170]
+position = Vector2(0, 300)
+shape = SubResource("RectangleShape2D_fukds")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="UI Boundary" unique_id=338931220]
+position = Vector2(4, -312.5)
+shape = SubResource("RectangleShape2D_o45c4")

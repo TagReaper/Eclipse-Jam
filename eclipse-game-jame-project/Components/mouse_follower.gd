@@ -5,6 +5,7 @@ extends Node2D
 @export var Cooldown: Timer
 @export var sandbox: bool = false
 @export var RedArea: Area2D
+@export var UIArea: Area2D
 
 @export_category("UI Controllers")
 @export var ActAlways: Control
@@ -40,6 +41,42 @@ func _ready() -> void:
 	level_started = false
 	Global.paused = true
 	ActAlways._update_pause(Global.paused)
+	
+	if resources.get("Bones") > 0:
+			ActBefore.Bones.visible = true
+			ActBefore.BonesLabel.text = str(resources.get("Bones"))
+	else:
+			ActBefore.Bones.visible = false
+	
+	if resources.get("Flesh") > 0:
+			ActBefore.Flesh.visible = true
+			ActBefore.FleshLabel.text = str(resources.get("Flesh"))
+	else:
+			ActBefore.Flesh.visible = false
+	
+	if resources.get("Mossy Bones") > 0:
+			ActBefore.MossyBones.visible = true
+			ActBefore.MossyBonesLabel.text = str(resources.get("Mossy Bones"))
+	else:
+			ActBefore.MossyBones.visible = false
+	
+	if resources.get("Gilded Bones") > 0:
+			ActBefore.GildedBones.visible = true
+			ActBefore.GildedBonesLabel.text = str(resources.get("Gilded Bones"))
+	else:
+			ActBefore.GildedBones.visible = false
+	
+	if resources.get("Mythril Scrap") > 0:
+			ActBefore.MythrilScrap.visible = true
+			ActBefore.MythrilScrapLabel.text = str(resources.get("Mythril Scrap"))
+	else:
+			ActBefore.MythrilScrap.visible = false
+	
+	if resources.get("Tantalum Scrap") > 0:
+			ActBefore.TantalumScrap.visible = true
+			ActBefore.TantalumScrapLabel.text = str(resources.get("Tantalum Scrap"))
+	else:
+			ActBefore.TantalumScrap.visible = false
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
@@ -51,6 +88,7 @@ func _process(delta: float) -> void:
 		else:
 			Global.paused = true
 		if !level_started:
+			ActBefore._disable()
 			level_started = true
 			_save_node_state()
 			get_parent().find_child("Boundary").visible = false
@@ -60,6 +98,7 @@ func _process(delta: float) -> void:
 		blue_count = 0
 		red_count = 0
 		if level_started:
+			ActBefore._enable()
 			level_started = false
 			Global.paused = true
 			get_parent().find_child("Boundary").visible = true
@@ -73,6 +112,7 @@ func _process(delta: float) -> void:
 	else:
 		Engine.time_scale = 1.0
 	
+	
 	if Input.is_action_pressed("Summon") and Cooldown.is_stopped() and Global.paused and !level_started:
 		if !sandbox:
 			if !CollArea.has_overlapping_areas() and !ZoneArea.has_overlapping_areas():
@@ -84,6 +124,7 @@ func _process(delta: float) -> void:
 					if g_pos.x > get_parent().find_child("Boundary").position.x:
 						g_pos.x = get_parent().find_child("Boundary").position.x - 8
 					resources[cost[0]] -= cost[1]
+					ActBefore._update_resources(cost[0],resources[cost[0]])
 					var summon = selected_unit.instantiate()
 					summon.faction = Global.Faction.BLUE
 					summon.global_position = g_pos + Vector2(0,-8)
@@ -99,6 +140,8 @@ func _process(delta: float) -> void:
 					selected_faction = Global.Faction.BLUE
 					if g_pos.x > get_parent().find_child("Boundary").position.x:
 						g_pos.x = get_parent().find_child("Boundary").position.x - 8
+				elif ZoneArea.overlaps_area(UIArea):
+					return
 				elif ZoneArea.overlaps_area(RedArea):
 					selected_faction = Global.Faction.RED
 					if g_pos.x < get_parent().find_child("Boundary").position.x:
@@ -112,7 +155,7 @@ func _process(delta: float) -> void:
 					summon.unit_id = Unit.ID
 					get_parent().find_child("Units", false, false).add_child(summon)
 					summon_num += 1
-					Cooldown.start(0.05)
+					Cooldown.start(0.02)
 	
 	if Input.is_action_pressed("RemoveSummon") and CollArea.has_overlapping_areas() and Global.paused and !level_started:
 		if !sandbox:
@@ -122,6 +165,7 @@ func _process(delta: float) -> void:
 				for unit in colls:
 					var cost: Array = Global.Units.get(unit.get_parent().unit_id).Cost
 					resources[cost[0]] += cost[1]
+					ActBefore._update_resources(cost[0],resources[cost[0]])
 					unit.get_parent()._death()
 		else:
 			var colls = CollArea.get_overlapping_areas()
@@ -165,4 +209,3 @@ func _change_unit_count(_faction: Global.Faction,_qty: int):
 		Global.Faction.RED:
 			red_count += _qty
 	ActAlways._update_count(blue_count, red_count)
-	print("\nBlue Count: ", blue_count, "\nRed Count: ", red_count)
