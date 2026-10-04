@@ -41,6 +41,8 @@ var direction: Vector2 = Vector2.ZERO
 var target: CharacterBody2D
 var tick: int = 0
 var wobble_time: float = 0
+var Mouse_Follower: Node2D
+
 
 # Constants
 # May be unecessary: const MOVEMENT_MULTIPLIER: int = 32
@@ -77,6 +79,8 @@ func _ready() -> void:
 			RangeCast.set_collision_mask_value(5, true)
 			Sprite.get_child(0).modulate = "ffff00"
 	
+	Mouse_Follower = get_parent().get_parent().find_child("Mouse Follower")
+	
 	# Sets initial values
 	health = max_health
 	current_state = State.CHASE
@@ -102,6 +106,17 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Manages movement and direction
 	# State management
+	match faction:
+		Global.Faction.BLUE:
+			if Mouse_Follower.red_count <= 0:
+				current_state = State.CELEBRATE
+			else:
+				current_state = State.CHASE
+		Global.Faction.RED:
+			if Mouse_Follower.blue_count <= 0:
+				current_state = State.CELEBRATE
+			else:
+				current_state = State.CHASE
 	
 	# Self Validation check
 	if health <= 0:
@@ -179,7 +194,7 @@ func _find_target() -> void:
 				loc = child_glob_pos - glob_pos
 				target = child
 	if !target:
-		current_state = State.CELEBRATE
+		target = self
 
 # Animating the little guy moving back and forth
 func _animate_wobble(delta: float) -> void:
@@ -212,6 +227,7 @@ func _animation_finished(anim_name: StringName) -> void:
 		pass
 
 func _death():
+	Mouse_Follower._change_unit_count(faction,-1)
 	queue_free()
 
 func _on_search_timer_timeout() -> void:

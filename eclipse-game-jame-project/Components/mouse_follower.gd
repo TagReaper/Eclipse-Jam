@@ -5,7 +5,8 @@ extends Node2D
 @export var Cooldown: Timer
 @export var sandbox: bool = false
 @export var RedArea: Area2D
-
+var blue_count: int = 0
+var red_count: int = 0
 
 var selected_unit: PackedScene
 var summon_num: int = 0
@@ -13,6 +14,7 @@ var selected_faction: Global.Faction
 var level_started: bool = false
 var Unit_State: PackedScene = null
 var Unit: Dictionary
+
 
 @export var resources: Dictionary[String, int] = {
 	"Bones": 5,
@@ -30,7 +32,8 @@ func _ready() -> void:
 	_set_unit("BS1")
 	level_started = false
 	Global.paused = true
-	print(resources)
+	for unit in get_parent().find_child("Units", false, false).get_children():
+		_change_unit_count(unit.faction, 1)
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
@@ -77,6 +80,7 @@ func _process(delta: float) -> void:
 					summon.name = "BLUE-" + Unit.Shorthand + "-" + str(summon_num)
 					summon.unit_id = Unit.ID
 					get_parent().find_child("Units", false, false).add_child(summon)
+					_change_unit_count(Global.Faction.BLUE, 1)
 					summon_num += 1
 					Cooldown.start(0.05)
 		else:
@@ -97,6 +101,7 @@ func _process(delta: float) -> void:
 				summon.name = Global.Faction.find_key(selected_faction) + "-" + Unit.Shorthand + "-" + str(summon_num)
 				summon.unit_id = Unit.ID
 				get_parent().find_child("Units", false, false).add_child(summon)
+				_change_unit_count(summon.faction, 1)
 				summon_num += 1
 				Cooldown.start(0.05)
 	
@@ -108,11 +113,13 @@ func _process(delta: float) -> void:
 				for unit in colls:
 					var cost: Array = Global.Units.get(unit.get_parent().unit_id).Cost
 					resources[cost[0]] += cost[1]
+					_change_unit_count(Global.Faction.BLUE, -1)
 					unit.get_parent().queue_free()
 		else:
 			var colls = CollArea.get_overlapping_areas()
 			
 			for unit in colls:
+				_change_unit_count(unit.get_parent().faction, -1)
 				unit.get_parent().queue_free()
 
 func _set_unit(_name: String) -> void:
@@ -143,3 +150,11 @@ func _load_node_state() -> void:
 	restored.name = "Units"
 	restored.y_sort_enabled = true
 	get_parent().add_child(restored)
+
+func _change_unit_count(_faction: Global.Faction,_qty: int):
+	match _faction:
+		Global.Faction.BLUE:
+			blue_count += _qty
+		Global.Faction.RED:
+			red_count += _qty
+	print("\nBlue Count: ", blue_count, "\nRed Count: ", red_count)
