@@ -5,6 +5,13 @@ extends Node2D
 @export var Cooldown: Timer
 @export var sandbox: bool = false
 @export var RedArea: Area2D
+
+@export_category("UI Controllers")
+@export var ActAlways: Control
+@export var ActBefore: Control
+@export var EndState: Control
+
+
 var blue_count: int = 0
 var red_count: int = 0
 
@@ -32,8 +39,7 @@ func _ready() -> void:
 	_set_unit("BS1")
 	level_started = false
 	Global.paused = true
-	for unit in get_parent().find_child("Units", false, false).get_children():
-		_change_unit_count(unit.faction, 1)
+	ActAlways._update_pause(Global.paused)
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
@@ -48,12 +54,16 @@ func _process(delta: float) -> void:
 			level_started = true
 			_save_node_state()
 			get_parent().find_child("Boundary").visible = false
+		ActAlways._update_pause(Global.paused)
 	
 	if Input.is_action_just_pressed("End"):
+		blue_count = 0
+		red_count = 0
 		if level_started:
 			level_started = false
 			Global.paused = true
 			get_parent().find_child("Boundary").visible = true
+			ActAlways._update_pause(Global.paused)
 			_load_node_state()
 		else:
 			get_tree().reload_current_scene()
@@ -80,30 +90,29 @@ func _process(delta: float) -> void:
 					summon.name = "BLUE-" + Unit.Shorthand + "-" + str(summon_num)
 					summon.unit_id = Unit.ID
 					get_parent().find_child("Units", false, false).add_child(summon)
-					_change_unit_count(Global.Faction.BLUE, 1)
 					summon_num += 1
 					Cooldown.start(0.05)
 		else:
-			var g_pos: Vector2 = global_position
-			if !ZoneArea.has_overlapping_areas():
-				selected_faction = Global.Faction.BLUE
-				if g_pos.x > get_parent().find_child("Boundary").position.x:
-					g_pos.x = get_parent().find_child("Boundary").position.x - 8
-			elif ZoneArea.overlaps_area(RedArea):
-				selected_faction = Global.Faction.RED
-				if g_pos.x < get_parent().find_child("Boundary").position.x:
-					g_pos.x = get_parent().find_child("Boundary").position.x + 8
-			if !CollArea.has_overlapping_areas():
-				selected_unit = load(Unit.Path)
-				var summon = selected_unit.instantiate()
-				summon.faction = selected_faction
-				summon.global_position = g_pos + Vector2(0,-8)
-				summon.name = Global.Faction.find_key(selected_faction) + "-" + Unit.Shorthand + "-" + str(summon_num)
-				summon.unit_id = Unit.ID
-				get_parent().find_child("Units", false, false).add_child(summon)
-				_change_unit_count(summon.faction, 1)
-				summon_num += 1
-				Cooldown.start(0.05)
+			if blue_count + red_count < 1000:
+				var g_pos: Vector2 = global_position
+				if !ZoneArea.has_overlapping_areas():
+					selected_faction = Global.Faction.BLUE
+					if g_pos.x > get_parent().find_child("Boundary").position.x:
+						g_pos.x = get_parent().find_child("Boundary").position.x - 8
+				elif ZoneArea.overlaps_area(RedArea):
+					selected_faction = Global.Faction.RED
+					if g_pos.x < get_parent().find_child("Boundary").position.x:
+						g_pos.x = get_parent().find_child("Boundary").position.x + 8
+				if !CollArea.has_overlapping_areas():
+					selected_unit = load(Unit.Path)
+					var summon = selected_unit.instantiate()
+					summon.faction = selected_faction
+					summon.global_position = g_pos + Vector2(0,-8)
+					summon.name = Global.Faction.find_key(selected_faction) + "-" + Unit.Shorthand + "-" + str(summon_num)
+					summon.unit_id = Unit.ID
+					get_parent().find_child("Units", false, false).add_child(summon)
+					summon_num += 1
+					Cooldown.start(0.05)
 	
 	if Input.is_action_pressed("RemoveSummon") and CollArea.has_overlapping_areas() and Global.paused and !level_started:
 		if !sandbox:
@@ -113,14 +122,12 @@ func _process(delta: float) -> void:
 				for unit in colls:
 					var cost: Array = Global.Units.get(unit.get_parent().unit_id).Cost
 					resources[cost[0]] += cost[1]
-					_change_unit_count(Global.Faction.BLUE, -1)
-					unit.get_parent().queue_free()
+					unit.get_parent()._death()
 		else:
 			var colls = CollArea.get_overlapping_areas()
 			
 			for unit in colls:
-				_change_unit_count(unit.get_parent().faction, -1)
-				unit.get_parent().queue_free()
+				unit.get_parent()._death()
 
 func _set_unit(_name: String) -> void:
 	Unit = Global.Units.get(_name)
@@ -157,4 +164,5 @@ func _change_unit_count(_faction: Global.Faction,_qty: int):
 			blue_count += _qty
 		Global.Faction.RED:
 			red_count += _qty
+	ActAlways._update_count(blue_count, red_count)
 	print("\nBlue Count: ", blue_count, "\nRed Count: ", red_count)

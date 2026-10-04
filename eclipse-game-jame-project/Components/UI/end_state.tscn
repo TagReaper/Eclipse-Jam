@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d3i2smwjnr40o"]
+
+[node name="End_State" type="Control" unique_id=1455088444]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

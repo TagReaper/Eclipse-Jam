@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://bo6qcoy60aneh"]
+
+[ext_resource type="Script" uid="uid://dkknn422dcxxj" path="res://Components/UI/active_always.gd" id="1_iggl2"]
+[ext_resource type="FontFile" uid="uid://bbddi8r81blfw" path="res://Assets/Fonts/BoldPixels.ttf" id="2_8au1k"]
+[ext_resource type="Texture2D" uid="uid://p1s5b7wlcgcd" path="res://Assets/UI/freefantasy.png" id="2_ckigy"]
+[ext_resource type="Texture2D" uid="uid://82op52t0cp5m" path="res://Assets/UI/MediavelFree.png" id="3_ckigy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1574"]
+font = ExtResource("2_8au1k")
+font_size = 32
+font_color = Color(0, 0.54509807, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_iggl2"]
+font = ExtResource("2_8au1k")
+font_size = 32
+font_color = Color(1, 0.13333334, 0.13725491, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Active_Always" type="Control" unique_id=837598908 node_paths=PackedStringArray("BlueCountDisplay", "RedCountDisplay", "PauseIndicator")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_iggl2")
+BlueCountDisplay = NodePath("Blue")
+RedCountDisplay = NodePath("Red")
+PauseIndicator = NodePath("Play-Pause Indicator")
+
+[node name="BG Sprites" type="Node2D" parent="." unique_id=47366775]
+position = Vector2(640, 360)
+
+[node name="Left" type="Sprite2D" parent="BG Sprites" unique_id=851644944]
+texture_filter = 1
+position = Vector2(-96, -312)
+scale = Vector2(4, 4)
+texture = ExtResource("2_ckigy")
+hframes = 8
+vframes = 8
+frame = 3
+
+[node name="Right" type="Sprite2D" parent="BG Sprites" unique_id=886720882]
+texture_filter = 1
+position = Vector2(96, -312)
+scale = Vector2(4, 4)
+texture = ExtResource("2_ckigy")
+hframes = 8
+vframes = 8
+frame = 5
+
+[node name="Center" type="Sprite2D" parent="BG Sprites" unique_id=807950338]
+texture_filter = 1
+position = Vector2(0, -312)
+scale = Vector2(4, 4)
+texture = ExtResource("2_ckigy")
+hframes = 8
+vframes = 8
+frame = 4
+
+[node name="BlueSoul" type="Sprite2D" parent="BG Sprites" unique_id=1050933895]
+texture_filter = 1
+position = Vector2(-28, -312)
+scale = Vector2(3, 3)
+texture = ExtResource("3_ckigy")
+hframes = 16
+vframes = 8
+frame = 114
+
+[node name="RedSoul" type="Sprite2D" parent="BG Sprites" unique_id=1379137640]
+texture_filter = 1
+position = Vector2(28, -312)
+scale = Vector2(3, 3)
+texture = ExtResource("3_ckigy")
+hframes = 16
+vframes = 8
+frame = 115
+
+[node name="Blue" type="Label" parent="." unique_id=2131753794]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 468.0
+offset_top = 14.0
+offset_right = 576.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_f1574")
+horizontal_alignment = 2
+
+[node name="Red" type="Label" parent="." unique_id=851115521]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 668.0
+offset_top = 14.0
+offset_right = 776.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_iggl2")
+
+[node name="Play-Pause Indicator" type="Sprite2D" parent="." unique_id=1321250967]
+texture_filter = 1
+position = Vector2(643, 44)
+scale = Vector2(3, 3)
+texture = ExtResource("3_ckigy")
+hframes = 16
+vframes = 8
+frame = 112

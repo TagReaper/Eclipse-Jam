@@ -93,6 +93,9 @@ func _ready() -> void:
 		Shadow.position.x = shadow_offset
 	else:
 		Shadow.position.x = -shadow_offset
+	
+	Mouse_Follower._change_unit_count(faction, 1)
+
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:

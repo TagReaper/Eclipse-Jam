@@ -2,15 +2,21 @@
 
 [ext_resource type="Script" uid="uid://c5tcbu2lsfo8h" path="res://Components/mouse_follower.gd" id="1_4qxkb"]
 [ext_resource type="Texture2D" uid="uid://82op52t0cp5m" path="res://Assets/UI/MediavelFree.png" id="2_3c1xd"]
+[ext_resource type="PackedScene" uid="uid://bo6qcoy60aneh" path="res://Components/UI/active_always.tscn" id="3_bdjl3"]
+[ext_resource type="PackedScene" uid="uid://blqqpmfcxjki1" path="res://Components/UI/active_before.tscn" id="4_4nt7d"]
+[ext_resource type="PackedScene" uid="uid://d3i2smwjnr40o" path="res://Components/UI/end_state.tscn" id="5_lbvka"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
 
-[node name="Mouse Follower" type="Node2D" unique_id=637497597 node_paths=PackedStringArray("ZoneArea", "CollArea", "Cooldown")]
+[node name="Mouse Follower" type="Node2D" unique_id=637497597 node_paths=PackedStringArray("ZoneArea", "CollArea", "Cooldown", "ActAlways", "ActBefore", "EndState")]
 process_mode = 3
 script = ExtResource("1_4qxkb")
 ZoneArea = NodePath("Area2D")
 CollArea = NodePath("Area2D2")
 Cooldown = NodePath("Timer")
+ActAlways = NodePath("CanvasLayer/UI Controller/Active_Always")
+ActBefore = NodePath("CanvasLayer/UI Controller/Active_Before")
+EndState = NodePath("CanvasLayer/UI Controller/End_State")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1248681465]
 collision_layer = 0
@@ -38,3 +44,20 @@ texture = ExtResource("2_3c1xd")
 hframes = 16
 vframes = 8
 frame = 94
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=874045540]
+
+[node name="UI Controller" type="Control" parent="CanvasLayer" unique_id=1258128854]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Active_Always" parent="CanvasLayer/UI Controller" unique_id=837598908 instance=ExtResource("3_bdjl3")]
+layout_mode = 0
+
+[node name="Active_Before" parent="CanvasLayer/UI Controller" unique_id=1668887134 instance=ExtResource("4_4nt7d")]
+layout_mode = 0
+
+[node name="End_State" parent="CanvasLayer/UI Controller" unique_id=1455088444 instance=ExtResource("5_lbvka")]
+layout_mode = 0
