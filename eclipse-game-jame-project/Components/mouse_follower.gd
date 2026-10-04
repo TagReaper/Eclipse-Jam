@@ -23,6 +23,8 @@ var Unit: Dictionary
 	"Tantalum Scrap": 0
 }
 
+var resourse_cpy: Dictionary[String, int]
+
 func _ready() -> void:
 	# Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	_set_unit("BS1")
@@ -63,14 +65,12 @@ func _process(delta: float) -> void:
 			if !CollArea.has_overlapping_areas() and !ZoneArea.has_overlapping_areas():
 				var cost: Array = Unit.Cost
 				if resources[cost[0]] < cost[1]:
-					print("Not Enough Resources to summon ", Unit.Name)
+					pass
 				else:
 					var g_pos: Vector2 = global_position
 					if g_pos.x > get_parent().find_child("Boundary").position.x:
 						g_pos.x = get_parent().find_child("Boundary").position.x - 8
-					print("\nSummoning ", Global.Faction.find_key(selected_faction), " ", Unit.Name, ": ", cost[1], " ", cost[0], " used...")
 					resources[cost[0]] -= cost[1]
-					print("You now have ", resources[cost[0]], " ", cost[0], " remaining.")
 					var summon = selected_unit.instantiate()
 					summon.faction = Global.Faction.BLUE
 					summon.global_position = g_pos + Vector2(0,-8)
@@ -90,8 +90,6 @@ func _process(delta: float) -> void:
 				if g_pos.x < get_parent().find_child("Boundary").position.x:
 					g_pos.x = get_parent().find_child("Boundary").position.x + 8
 			if !CollArea.has_overlapping_areas():
-				print("\nSummoning ", Global.Faction.find_key(selected_faction), " ", Unit.Name, ": No resources used...")
-				print("Sandbox mode is enabled.")
 				selected_unit = load(Unit.Path)
 				var summon = selected_unit.instantiate()
 				summon.faction = selected_faction
@@ -102,7 +100,7 @@ func _process(delta: float) -> void:
 				summon_num += 1
 				Cooldown.start(0.05)
 	
-	if Input.is_action_pressed("RemoveSummon") and CollArea.has_overlapping_areas():
+	if Input.is_action_pressed("RemoveSummon") and CollArea.has_overlapping_areas() and Global.paused and !level_started:
 		if !sandbox:
 			if !ZoneArea.has_overlapping_areas():
 				var colls = CollArea.get_overlapping_areas()
@@ -122,6 +120,7 @@ func _set_unit(_name: String) -> void:
 	selected_unit = load(Unit.Path)
 
 func _save_node_state() -> void:
+	resourse_cpy = resources
 	var temp_root = Node2D.new()
 	
 	for child in get_parent().find_child("Units", false, false).get_children():
@@ -138,6 +137,7 @@ func _save_node_state() -> void:
 	temp_root.free()
 
 func _load_node_state() -> void:
+	resources = resourse_cpy
 	get_parent().find_child("Units", false, false).free()
 	var restored = Unit_State.instantiate()
 	restored.name = "Units"

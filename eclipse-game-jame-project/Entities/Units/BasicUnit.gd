@@ -81,7 +81,7 @@ func _ready() -> void:
 	health = max_health
 	current_state = State.CHASE
 	
-	SearchTimer.start(randf_range(1,5))
+	SearchTimer.start(5)
 	
 	Sprite.flip_h = sign(global_position.x) > 0
 	Sprite.get_child(0).flip_h = Sprite.flip_h
@@ -162,6 +162,7 @@ func get_direction() -> Vector2:
 				else:
 					_find_target()
 			State.CELEBRATE:
+				_find_target()
 				return Vector2.ZERO
 	return direction
 
