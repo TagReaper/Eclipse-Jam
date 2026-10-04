@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cx7tgikucfsk2"]
+[gd_scene format=3 uid="uid://dul7s4e7rixsp"]
 
-[ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_w7rph"]
-[ext_resource type="Texture2D" uid="uid://bkpcmk8w3kjbv" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00-Sheet.png" id="2_ufywu"]
-[ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="3_ufywu"]
+[ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_4udn1"]
+[ext_resource type="Texture2D" uid="uid://bgn3w2hwx0ahh" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00.png" id="2_7k78k"]
+[ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="3_25woo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
 radius = 12.0
@@ -18,7 +18,7 @@ height = 40.0
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 27
-script = ExtResource("1_w7rph")
+script = ExtResource("1_4udn1")
 speed = 20.0
 acceleration = 8.0
 max_health = 5.0
@@ -40,17 +40,10 @@ shape = SubResource("CapsuleShape2D_w7rph")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=311601955]
 position = Vector2(0, 2)
-texture = ExtResource("2_ufywu")
+texture = ExtResource("2_7k78k")
 offset = Vector2(0, -16)
-hframes = 3
 
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D" unique_id=595650934]
-texture = ExtResource("2_ufywu")
-offset = Vector2(0, -16)
-hframes = 3
-frame = 2
-
-[node name="Hurtbox" parent="." unique_id=2081307332 instance=ExtResource("3_ufywu")]
+[node name="Hurtbox" parent="." unique_id=2081307332 instance=ExtResource("3_25woo")]
 position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=117402254]

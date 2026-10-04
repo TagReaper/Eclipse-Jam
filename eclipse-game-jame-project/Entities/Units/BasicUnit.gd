@@ -55,27 +55,28 @@ func _ready() -> void:
 			
 			RangeCast.set_collision_mask_value(5, true)
 			RangeCast.set_collision_mask_value(7, true)
-			Sprite.modulate = "00a4ff"
+			Sprite.get_child(0).modulate = "00a4ff"
 		Global.Faction.RED:
 			set_collision_layer_value(4, true)
 			Hurt.set_collision_layer_value(5, true)
 			
 			RangeCast.set_collision_mask_value(3, true)
 			RangeCast.set_collision_mask_value(7, true)
-			Sprite.modulate = "ff0000"
+			Sprite.get_child(0).modulate = "ff0000"
 		Global.Faction.YELLOW:
 			set_collision_layer_value(6, true)			
 			Hurt.set_collision_layer_value(7, true)
 			
 			RangeCast.set_collision_mask_value(3, true)
 			RangeCast.set_collision_mask_value(5, true)
-			Sprite.modulate = "ffff00"
+			Sprite.get_child(0).modulate = "ffff00"
 	
 	# Sets initial values
 	health = max_health
 	current_state = State.CHASE
 	
 	Sprite.flip_h = sign(global_position.x) > 0
+	Sprite.get_child(0).flip_h = Sprite.flip_h
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
@@ -144,8 +145,12 @@ func get_direction() -> Vector2:
 				else:
 					_find_target()
 					return (target.global_position - global_position).normalized()
-			State.CELEBRATE:
-				pass
+			State.FLEE:
+				if target:
+					return -(target.global_position - global_position).normalized()
+				else:
+					_find_target()
+					return -(target.global_position - global_position).normalized()
 	return direction
 
 func _find_target() -> void:
@@ -169,7 +174,7 @@ func _find_target() -> void:
 func _animate_wobble(delta: float) -> void:
 	# Check if the character is actively moving on the ground
 	var vel: float
-	if current_state == State.CHASE:
+	if current_state != State.CELEBRATE:
 		vel = velocity.length()
 	else:
 		vel = 10
@@ -181,8 +186,14 @@ func _animate_wobble(delta: float) -> void:
 	Sprite.rotation = angle_sin * deg_to_rad(vel/5)
 	if direction.x < 0 and !Sprite.flip_h:
 		Sprite.flip_h = true
+		Sprite.get_child(0).flip_h = Sprite.flip_h
 	elif direction.x > 0 and Sprite.flip_h:
 		Sprite.flip_h = false
+		Sprite.get_child(0).flip_h = Sprite.flip_h
+	
+	if current_state == State.CELEBRATE:
+		var sca = 1 + abs(angle_sin) * 0.2
+		Sprite.scale = Vector2(sca, sca)
 
 func _animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Attack":
