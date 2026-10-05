@@ -43,6 +43,7 @@ var target: CharacterBody2D
 var tick: int = 0
 var wobble_time: float = 0
 var Mouse_Follower: Node2D
+var dead: bool = false
 
 
 # Constants
@@ -124,12 +125,13 @@ func _physics_process(delta: float) -> void:
 	
 	# Self Validation check
 	if health <= 0:
-		_death()
+		if !dead:
+			_death()
 		return
 	
 	# Target Validation check
-	if target and target.health <= 0:
-		target = null
+	if target and target.dead:
+		_find_target()
 	
 	if !Global.paused:
 		# Setting Direction
@@ -157,8 +159,8 @@ func _within_range() -> void:
 	if CooldownTimer.is_stopped():
 		_attack()
 		var tween = create_tween()
-		tween.tween_property(Sprite, "scale", Vector2(1 + 0.02*damage,1 + 0.02*damage), 0.03)
-		tween.tween_property(Sprite, "scale", Vector2(0.9,0.9), 0.03)
+		tween.tween_property(Sprite, "scale", Vector2(1 + 0.05*damage/2,1 + 0.05*damage/2), 0.03)
+		tween.tween_property(Sprite, "scale", Vector2(0.9,0.9), 0.02)
 		tween.tween_property(Sprite, "scale", Vector2(1,1), 0.03)
 		CooldownTimer.start(randf_range(cooldown_min,cooldown_max))
 
@@ -192,7 +194,7 @@ func _find_target() -> void:
 	target = null
 	
 	for child in get_parent().get_children():
-		if child.faction != faction:
+		if child.faction != faction and !child.dead:
 			var child_glob_pos: Vector2 = child.global_position
 			if (child_glob_pos - glob_pos).length() < loc.length():
 				loc = child_glob_pos - glob_pos
@@ -231,7 +233,20 @@ func _animation_finished(anim_name: StringName) -> void:
 		pass
 
 func _death():
+	dead = true
 	Mouse_Follower._change_unit_count(faction,-1)
+	get_child(0).disabled = true
+	Hurt.get_child(1).disabled = true
+	$"Death Particles/GPUParticles2D".emitting = true
+	$"Death Particles/DeathSFX".pitch_scale = randf_range(0.7,1.3)
+	$"Death Particles/DeathSFX".play()
+	Sprite.visible = false
+	Shadow.visible = false
+	velocity = Vector2.ZERO
+	await get_tree().create_timer(1.5).timeout
+	var tween = get_tree().create_tween()
+	tween.tween_property($"Death Particles", "modulate:a", 0, 0.5)
+	await get_tree().create_timer(0.5).timeout
 	queue_free()
 
 func _on_search_timer_timeout() -> void:

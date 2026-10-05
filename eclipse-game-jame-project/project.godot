@@ -11,14 +11,19 @@ config_version=5
 [application]
 
 config/name="Eclipse Game Jame Project"
-run/main_scene="uid://cuopk2ld3jl66"
+run/main_scene="uid://516pokvvj870"
 config/features=PackedStringArray("4.7", "Mobile")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://cl8uaoyx5yb74"
+
 [autoload]
 
 Global="*uid://c23r8gwvlcatu"
+Music="*uid://bcr2hexfxf2sh"
 
 [display]
 
@@ -104,3 +109,4 @@ RemoveSummon={
 
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.21568628, 0.5803922, 0.43137255, 1)

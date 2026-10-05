@@ -38,27 +38,27 @@ var Units: Dictionary = {
 		"Name": "Basic Spear Skeleton",
 		"Shorthand": "BSpS",
 		"Path":"res://Entities/Units/Basic Skeletons/Basic_Spear_Skeleton.tscn" ,
-		"Cost": ["Bones", 25]
+		"Cost": ["Bones", 20]
 	},
 	"BS4": {
 		"ID": "BS4",
 		"Name": "Basic Bow Skeleton",
 		"Shorthand": "BBS",
-		"Path": "res://Entities/Units/basic_unit_test.tscn",
-		"Cost": ["Bones", 40]
+		"Path": "res://Entities/Units/Basic Skeletons/Basic_Bow_Skeleton.tscn",
+		"Cost": ["Bones", 50]
 	},
 	"BS5": {
 		"ID": "BS5",
 		"Name": "Basic Sword Skeleton",
 		"Shorthand": "BSwS",
 		"Path": "res://Entities/Units/Basic Skeletons/Basic_Sword_Skeleton.tscn",
-		"Cost": ["Bones", 75]
+		"Cost": ["Bones", 60]
 	},
 	"BS6": {
 		"ID": "BS6",
 		"Name": "Basic Halberd Skeleton",
 		"Shorthand": "BHS",
 		"Path": "res://Entities/Units/Basic Skeletons/Basic_Halberd_Skeleton.tscn",
-		"Cost": ["Bones", 105]
+		"Cost": ["Bones", 95]
 	}
 }

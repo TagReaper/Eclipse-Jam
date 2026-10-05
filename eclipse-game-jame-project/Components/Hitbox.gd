@@ -1,12 +1,12 @@
 class_name Hitbox extends Area2D
 
 # Internal Variables
-var damage: float
-var knockback: float
-var shape: Shape2D
-var hostile: bool
-var faction: Global.Faction
-var penetration: int
+@export var damage: float
+@export var knockback: float
+@export var shape: Shape2D
+@export var faction: Global.Faction
+@export var penetration: int
+@export var duration: float = 0.1
 
 # Assignments for the initial hitbox spawning
 func _init(_damage:float, _knockback: float, _shape:Shape2D, _faction: Global.Faction, _pen: int) -> void:
@@ -24,7 +24,7 @@ func _ready() -> void:
 	var new_timer = Timer.new()
 	add_child(new_timer)
 	new_timer.timeout.connect(queue_free)
-	new_timer.call_deferred("start", 0.1)
+	new_timer.call_deferred("start", duration)
 	
 	# Setting the shape
 	if shape:
@@ -54,4 +54,5 @@ func _on_area_entered(area: Area2D):
 		if !area.has_method("_recieve_hit"):
 			return
 		area._recieve_hit(damage, knockback, (area.global_position - get_parent().get_parent().global_position).normalized())
-		queue_free()
+		if penetration == 0:
+			queue_free()

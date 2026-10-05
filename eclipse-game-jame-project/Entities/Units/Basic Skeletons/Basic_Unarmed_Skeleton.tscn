@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dty633kd048nl" path="res://Assets/Art/Units/Shadow.png" id="2_p5ptg"]
 [ext_resource type="Texture2D" uid="uid://bkpcmk8w3kjbv" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00-Sheet.png" id="3_c7jmf"]
 [ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="4_bpy2d"]
+[ext_resource type="Texture2D" uid="uid://bjdo1jn1mjrrb" path="res://Assets/UI/Units/bone.png" id="5_ld37h"]
+[ext_resource type="AudioStream" uid="uid://wp4ds5fhgw72" path="res://Assets/Sound/SFX/Death.wav" id="6_gw10l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
 radius = 12.0
@@ -11,9 +13,67 @@ radius = 12.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7rph"]
 radius = 8.0
 
+[sub_resource type="Shader" id="Shader_lb14j"]
+code = "shader_type canvas_item;
+
+uniform float progress : hint_range(0, 1);
+uniform float block_size = 1;
+
+float random(vec2 uv) {
+    return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 438.5453);
+}
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	vec2 uv_snapped = floor(UV / TEXTURE_PIXEL_SIZE / vec2(block_size));
+	color.a *= step(progress, random(uv_snapped));
+	COLOR = color;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1574"]
+shader = SubResource("Shader_lb14j")
+shader_parameter/progress = 0.0
+shader_parameter/block_size = 4.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1574"]
 radius = 14.0
 height = 40.0
+
+[sub_resource type="Curve" id="Curve_ld37h"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(1, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gw10l"]
+curve = SubResource("Curve_ld37h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gw10l"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 15.54
+angle_min = -0.9999893
+angle_max = 1.0000107
+angle_curve = SubResource("CurveTexture_gw10l")
+direction = Vector3(0, -1.5, 0)
+spread = 60.0
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+gravity = Vector3(0, 55, 0)
+linear_accel_min = -5.000002
+linear_accel_max = 0.99999774
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.4
+collision_use_scale = true
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f1574"]
+polygon = PackedVector2Array(-58, 20, 64, 20, 122, 16, 11.426025, 16, -108, 16)
 
 [node name="BUS" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "Shadow", "SearchTimer", "CooldownTimer", "RangeCast", "HitboxSpawn", "Hurt")]
 scale = Vector2(0.5, 0.5)
@@ -48,6 +108,7 @@ position = Vector2(-4, 14)
 texture = ExtResource("2_p5ptg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=311601955]
+material = SubResource("ShaderMaterial_f1574")
 position = Vector2(0, 2)
 texture = ExtResource("3_c7jmf")
 offset = Vector2(0, -16)
@@ -83,5 +144,27 @@ autostart = true
 [node name="SearchTimer" type="Timer" parent="." unique_id=1690220607]
 wait_time = 5.0
 one_shot = true
+
+[node name="Death Particles" type="Node2D" parent="." unique_id=2099276391]
+y_sort_enabled = true
+position = Vector2(0, -4)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Death Particles" unique_id=1146067462]
+position = Vector2(0, -6)
+emitting = false
+amount = 15
+texture = ExtResource("5_ld37h")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_gw10l")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Death Particles" unique_id=2132424243]
+position = Vector2(-2, 6)
+occluder = SubResource("OccluderPolygon2D_f1574")
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="Death Particles" unique_id=575879369]
+stream = ExtResource("6_gw10l")
+bus = &"SFX"
 
 [connection signal="timeout" from="SearchTimer" to="." method="_on_search_timer_timeout"]

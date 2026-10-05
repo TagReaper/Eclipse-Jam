@@ -22,7 +22,17 @@ var selected_faction: Global.Faction
 var level_started: bool = false
 var Unit_State: PackedScene = null
 var Unit: Dictionary
+var level_over: bool = false
+var exitVal: int = 0
+var music: Array[String] = ["res://Assets/Sound/Music/Wav/Lentikula - 02 The Dancing Dead.wav", 
+"res://Assets/Sound/Music/Wav/Lentikula - 03 Pharaoh's Curse.wav", 
+"res://Assets/Sound/Music/Wav/Lentikula - 04 Red Dungeon.wav",
+"res://Assets/Sound/Music/Wav/Lentikula - 05 The Forgotten Library.wav",
+"res://Assets/Sound/Music/Wav/Lentikula - 06 Madness.wav",
+"res://Assets/Sound/Music/Wav/Lentikula - 07 Blood Moon.wav"]
+@export_category("Level Specific")
 @export var Unlocked_Units: Array = [0,0,0,0,0,0]
+@export var Next_Level: String
 
 
 @export var resources: Dictionary[String, int] = {
@@ -38,10 +48,14 @@ var resourse_cpy: Dictionary[String, int]
 
 func _ready() -> void:
 	# Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	$"CanvasLayer/UI Controller/Blend".visible = true
 	_set_unit("BS1")
 	level_started = false
 	Global.paused = true
 	ActAlways._update_pause(Global.paused)
+	
+	if sandbox:
+		Music._swap_track("res://Assets/Sound/Music/Wav/Lentikula - 01 Flame of Death.wav")
 	
 	if resources.get("Bones") > 0:
 			ActBefore.Bones.visible = true
@@ -96,7 +110,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Pause"):
 		if Global.paused:
 			Global.paused = false
+			$PlaySFX.play()
 		else:
+			$PauseSFX.play()
 			Global.paused = true
 		if !level_started:
 			ActBefore._disable()
@@ -105,12 +121,40 @@ func _process(delta: float) -> void:
 			get_parent().find_child("Boundary").visible = false
 		ActAlways._update_pause(Global.paused)
 	
+	if !level_over and level_started:
+		if blue_count <= 0 and red_count > 0:
+			level_over = true
+			$LossSFX.play()
+		elif blue_count > 0 and red_count <= 0:
+			level_over = true
+			if !sandbox:
+				EndState.visible = true
+			$WinSFX.play()
+	
+	if Input.is_action_pressed("ui_cancel"):
+		if exitVal >= 1000:
+			$"CanvasLayer/UI Controller/Blend/AnimationPlayer".play_backwards("Start")
+			Music._swap_track("res://Assets/Sound/Music/Wav/Lentikula - 08 The Final Descent.wav")
+			await get_tree().create_timer(1).timeout
+			get_tree().change_scene_to_file("res://Levels/main_menu.tscn")
+		exitVal += 4
+	else:
+		exitVal = 0
+	
+	$"CanvasLayer/UI Controller/PauseMenu".modulate = Color(1.0, 1.0, 1.0, float(exitVal/1000.0))
+	
 	if Input.is_action_just_pressed("End"):
+		if !sandbox and blue_count > 0 and red_count <= 0 and Next_Level != "":
+			$"CanvasLayer/UI Controller/Blend/AnimationPlayer".play_backwards("Start")
+			Music._swap_track(music[randi_range(0,5)])
+			await get_tree().create_timer(1).timeout
+			get_tree().change_scene_to_file(Next_Level)
 		blue_count = 0
 		red_count = 0
 		if level_started:
 			ActBefore._enable()
 			level_started = false
+			level_over = false
 			Global.paused = true
 			get_parent().find_child("Boundary").visible = true
 			ActAlways._update_pause(Global.paused)
@@ -136,6 +180,8 @@ func _process(delta: float) -> void:
 						g_pos.x = get_parent().find_child("Boundary").position.x - 8
 					resources[cost[0]] -= cost[1]
 					ActBefore._update_resources(cost[0],resources[cost[0]])
+					$PlacmentSFX.pitch_scale = randf_range(0.5,0.8)
+					$PlacmentSFX.play()
 					var summon = selected_unit.instantiate()
 					summon.faction = Global.Faction.BLUE
 					summon.global_position = g_pos + Vector2(0,-8)
@@ -158,7 +204,8 @@ func _process(delta: float) -> void:
 					if g_pos.x < get_parent().find_child("Boundary").position.x:
 						g_pos.x = get_parent().find_child("Boundary").position.x + 8
 				if !CollArea.has_overlapping_areas():
-					selected_unit = load(Unit.Path)
+					$PlacmentSFX.pitch_scale = randf_range(0.7,1.3)
+					$PlacmentSFX.play()
 					var summon = selected_unit.instantiate()
 					summon.faction = selected_faction
 					summon.global_position = g_pos + Vector2(0,-8)

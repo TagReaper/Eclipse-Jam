@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://cbqp6cr0itabx"]
+
+[ext_resource type="Script" uid="uid://cawo1r54b6407" path="res://Levels/level_select.gd" id="1_0f3nk"]
+[ext_resource type="Texture2D" uid="uid://y7mx7mr8j5g" path="res://Assets/UI/Background cementery 300x128/Background cementery 300x128/Background 300x128.png" id="2_l187h"]
+[ext_resource type="FontFile" uid="uid://bbddi8r81blfw" path="res://Assets/Fonts/BoldPixels.ttf" id="3_uo67c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3es34"]
+bg_color = Color(0.6998785, 0.720675, 0.7295572, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15p6s"]
+bg_color = Color(0.5435759, 0.5708919, 0.5799815, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Gradient" id="Gradient_l187h"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rqfbf"]
+gradient = SubResource("Gradient_l187h")
+
+[sub_resource type="Animation" id="Animation_15p6s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5qvx8"]
+resource_name = "Start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hllw6"]
+_data = {
+&"RESET": SubResource("Animation_15p6s"),
+&"Start": SubResource("Animation_5qvx8")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1574"]
+font = ExtResource("3_uo67c")
+font_size = 64
+outline_size = 48
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Level Select" type="Control" unique_id=58675386]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0f3nk")
+
+[node name="BG" type="TextureRect" parent="." unique_id=2003099231]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l187h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=388505868]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -336.0
+offset_right = 118.0
+offset_bottom = -164.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 32
+
+[node name="Level" type="Button" parent="VBoxContainer" unique_id=561580959]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_uo67c")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_3es34")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_15p6s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_15p6s")
+text = "  Level Select  "
+
+[node name="Sand" type="Button" parent="VBoxContainer" unique_id=1286274506]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_uo67c")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_3es34")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_15p6s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_15p6s")
+text = "Sandbox"
+
+[node name="Exit" type="Button" parent="VBoxContainer" unique_id=33075614]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_uo67c")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_3es34")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_15p6s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_15p6s")
+text = "Quit"
+
+[node name="Blend" type="TextureRect" parent="." unique_id=2044945986]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_rqfbf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Blend" unique_id=2065559768]
+libraries/ = SubResource("AnimationLibrary_hllw6")
+autoplay = &"Start"
+
+[node name="Label" type="Label" parent="." unique_id=946127223]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -184.0
+offset_top = 64.0
+offset_right = 176.0
+offset_bottom = 128.0
+grow_horizontal = 2
+text = "Level Select"
+label_settings = SubResource("LabelSettings_f1574")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Level" to="." method="_on_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/Sand" to="." method="_on_sand_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

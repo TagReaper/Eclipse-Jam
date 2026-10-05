@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ng5fss6qhnsq"
+path="res://.godot/imported/Lentikula - 01 Flame of Death.wav-9cc44a089bd90fcdd88e927cc60a2a15.sample"
+
+[deps]
+
+source_file="res://Assets/Sound/Music/Wav/Lentikula - 01 Flame of Death.wav"
+dest_files=["res://.godot/imported/Lentikula - 01 Flame of Death.wav-9cc44a089bd90fcdd88e927cc60a2a15.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

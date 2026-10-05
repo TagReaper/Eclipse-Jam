@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://f38mbtqypt6l"
+path="res://.godot/imported/Lentikula - 05 The Forgotten Library.wav-b8b8f4afb95f5f394352730c0f3c43ac.sample"
+
+[deps]
+
+source_file="res://Assets/Sound/Music/Wav/Lentikula - 05 The Forgotten Library.wav"
+dest_files=["res://.godot/imported/Lentikula - 05 The Forgotten Library.wav-b8b8f4afb95f5f394352730c0f3c43ac.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

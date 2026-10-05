@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dty633kd048nl" path="res://Assets/Art/Units/Shadow.png" id="2_uv0ia"]
 [ext_resource type="Texture2D" uid="uid://clhqybbfb13g4" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_01-Sheet.png" id="3_hjc6r"]
 [ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="4_ifk4t"]
+[ext_resource type="Texture2D" uid="uid://bjdo1jn1mjrrb" path="res://Assets/UI/Units/bone.png" id="5_le52c"]
+[ext_resource type="AudioStream" uid="uid://wp4ds5fhgw72" path="res://Assets/Sound/SFX/Death.wav" id="6_p5bns"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hjc6r"]
 radius = 8.0
@@ -16,13 +18,43 @@ radius = 8.0
 radius = 14.0
 height = 40.0
 
+[sub_resource type="Curve" id="Curve_p5bns"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(1, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gw10l"]
+curve = SubResource("Curve_p5bns")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oynhm"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 15.54
+angle_min = -0.9999893
+angle_max = 1.0000107
+angle_curve = SubResource("CurveTexture_gw10l")
+direction = Vector3(0, -1.5, 0)
+spread = 60.0
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+gravity = Vector3(0, 55, 0)
+linear_accel_min = -5.000002
+linear_accel_max = 0.99999774
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.4
+collision_use_scale = true
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_61cdd"]
+polygon = PackedVector2Array(-58, 20, 64, 20, 122, 16, 11.426025, 16, -108, 16)
+
 [node name="BDS" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "Shadow", "SearchTimer", "CooldownTimer", "RangeCast", "HitboxSpawn", "Hurt")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 27
 script = ExtResource("1_e1m2a")
 unit_id = "BS2"
-speed = 18.0
+speed = 22.0
 acceleration = 8.0
 max_health = 6.0
 damage = 2.0
@@ -85,5 +117,27 @@ autostart = true
 [node name="SearchTimer" type="Timer" parent="." unique_id=1690220607]
 wait_time = 5.0
 one_shot = true
+
+[node name="Death Particles" type="Node2D" parent="." unique_id=256553290]
+y_sort_enabled = true
+position = Vector2(0, -4)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Death Particles" unique_id=210363877]
+position = Vector2(0, -6)
+emitting = false
+amount = 15
+texture = ExtResource("5_le52c")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_oynhm")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Death Particles" unique_id=2002299842]
+position = Vector2(-2, 6)
+occluder = SubResource("OccluderPolygon2D_61cdd")
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="Death Particles" unique_id=360780514]
+stream = ExtResource("6_p5bns")
+bus = &"SFX"
 
 [connection signal="timeout" from="SearchTimer" to="." method="_on_search_timer_timeout"]

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bchc2lfls03ej"]
+
+[ext_resource type="Texture2D" uid="uid://24w8jdjvxt4r" path="res://Assets/Art/Units/BasicSkeleton/Arrow.png" id="1_k3idd"]
+[ext_resource type="Script" uid="uid://cs2tif45io57b" path="res://Entities/arrow.gd" id="1_xoily"]
+[ext_resource type="Script" uid="uid://bxpbot5sfiw7l" path="res://Components/Hitbox2.gd" id="3_wquc1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1574"]
+size = Vector2(14, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bu1pe"]
+radius = 3.5
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1845611410 node_paths=PackedStringArray("hit")]
+script = ExtResource("1_xoily")
+hit = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=283483838]
+texture_filter = 1
+position = Vector2(0, 0.5)
+texture = ExtResource("1_k3idd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1113670641]
+shape = SubResource("RectangleShape2D_f1574")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=709694676 node_paths=PackedStringArray("DurTimer")]
+script = ExtResource("3_wquc1")
+duration = 2.5
+DurTimer = NodePath("Timer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1727673411]
+position = Vector2(5, 0)
+shape = SubResource("CircleShape2D_bu1pe")
+
+[node name="Timer" type="Timer" parent="Area2D" unique_id=1739853356]
+
+[connection signal="timeout" from="Area2D/Timer" to="Area2D" method="_on_timer_timeout"]

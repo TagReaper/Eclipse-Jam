@@ -6,8 +6,56 @@
 [ext_resource type="PackedScene" uid="uid://blqqpmfcxjki1" path="res://Components/UI/active_before.tscn" id="4_4nt7d"]
 [ext_resource type="PackedScene" uid="uid://d3i2smwjnr40o" path="res://Components/UI/end_state.tscn" id="5_lbvka"]
 [ext_resource type="PackedScene" uid="uid://b1x7mx4avyq4d" path="res://Components/UI/pause_menu.tscn" id="6_4nt7d"]
+[ext_resource type="AudioStream" uid="uid://hq4qbv28wbd8" path="res://Assets/Sound/SFX/summon.wav" id="7_lbvka"]
+[ext_resource type="AudioStream" uid="uid://cdtjthq281q6c" path="res://Assets/Sound/SFX/lose.mp3" id="8_ea7hg"]
+[ext_resource type="AudioStream" uid="uid://bx7v8f1sd3u87" path="res://Assets/Sound/SFX/win.mp3" id="9_uvd3b"]
+[ext_resource type="AudioStream" uid="uid://lcjh5npyrj2d" path="res://Assets/Sound/SFX/play.mp3" id="10_iue3p"]
+[ext_resource type="AudioStream" uid="uid://df4cih10gc55v" path="res://Assets/Sound/SFX/pause.mp3" id="11_cf8gj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
+
+[sub_resource type="Gradient" id="Gradient_iue3p"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cf8gj"]
+gradient = SubResource("Gradient_iue3p")
+
+[sub_resource type="Animation" id="Animation_15p6s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5qvx8"]
+resource_name = "Start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6r05"]
+_data = {
+&"RESET": SubResource("Animation_15p6s"),
+&"Start": SubResource("Animation_5qvx8")
+}
 
 [node name="Mouse Follower" type="Node2D" unique_id=637497597 node_paths=PackedStringArray("ZoneArea", "CollArea", "Cooldown", "ActAlways", "ActBefore", "EndState")]
 process_mode = 3
@@ -67,21 +115,47 @@ offset_top = -118.0
 [node name="End_State" parent="CanvasLayer/UI Controller" unique_id=1455088444 instance=ExtResource("5_lbvka")]
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 20.0
+offset_bottom = 20.0
 
 [node name="PauseMenu" parent="CanvasLayer/UI Controller" unique_id=1170102437 instance=ExtResource("6_4nt7d")]
+layout_mode = 1
+
+[node name="Blend" type="TextureRect" parent="CanvasLayer/UI Controller" unique_id=358614916]
 visible = false
-layout_mode = 0
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_cf8gj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI Controller/Blend" unique_id=1041594735]
+libraries/ = SubResource("AnimationLibrary_x6r05")
+autoplay = &"Start"
+
+[node name="PlacmentSFX" type="AudioStreamPlayer" parent="." unique_id=348387846]
+stream = ExtResource("7_lbvka")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="LossSFX" type="AudioStreamPlayer" parent="." unique_id=1899227834]
+stream = ExtResource("8_ea7hg")
+volume_db = 12.0
+bus = &"SFX"
+
+[node name="WinSFX" type="AudioStreamPlayer" parent="." unique_id=1986932325]
+stream = ExtResource("9_uvd3b")
+bus = &"SFX"
+
+[node name="PlaySFX" type="AudioStreamPlayer" parent="." unique_id=848516948]
+stream = ExtResource("10_iue3p")
+
+[node name="PauseSFX" type="AudioStreamPlayer" parent="." unique_id=29275879]
+stream = ExtResource("11_cf8gj")
 
 [connection signal="mouse_entered" from="CanvasLayer/UI Controller/Active_Always" to="." method="_on_active_always_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/UI Controller/Active_Always" to="." method="_on_active_always_mouse_exited"]

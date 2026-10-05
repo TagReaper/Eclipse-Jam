@@ -1,7 +1,34 @@
 [gd_scene format=3 uid="uid://d3i2smwjnr40o"]
 
+[ext_resource type="FontFile" uid="uid://bbddi8r81blfw" path="res://Assets/Fonts/BoldPixels.ttf" id="1_ocjyy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqs55"]
+font = ExtResource("1_ocjyy")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 4
+shadow_size = 0
+
 [node name="End_State" type="Control" unique_id=1455088444]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="." unique_id=1518419419]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 428.0
+offset_top = 428.0
+offset_right = 812.0
+offset_bottom = 492.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press TAB to advance..."
+label_settings = SubResource("LabelSettings_bqs55")
+horizontal_alignment = 1
+vertical_alignment = 1

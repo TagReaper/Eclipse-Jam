@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c5netwk4tptf4"
+path="res://.godot/imported/Lentikula - 02 The Dancing Dead.wav-3248b6e8a5096f008f0caa4ab808957b.sample"
+
+[deps]
+
+source_file="res://Assets/Sound/Music/Wav/Lentikula - 02 The Dancing Dead.wav"
+dest_files=["res://.godot/imported/Lentikula - 02 The Dancing Dead.wav-3248b6e8a5096f008f0caa4ab808957b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

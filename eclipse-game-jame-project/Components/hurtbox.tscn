@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://doaudn5h5ak00"]
 
 [ext_resource type="Script" uid="uid://112g86xa6wy2" path="res://Components/Hurtbox.gd" id="1_urf2u"]
+[ext_resource type="AudioStream" uid="uid://6ltgwqhcnr1y" path="res://Assets/Sound/SFX/hitHurt.wav" id="2_hucxb"]
 
-[node name="Hurtbox" type="Area2D" unique_id=2081307332]
+[node name="Hurtbox" type="Area2D" unique_id=2081307332 node_paths=PackedStringArray("SFX")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_urf2u")
+SFX = NodePath("Hurt")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="." unique_id=15652687]
+stream = ExtResource("2_hucxb")
+bus = &"SFX"

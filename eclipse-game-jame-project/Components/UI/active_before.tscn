@@ -60,6 +60,13 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_735ne")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ui1ur")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_4x41d")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1574"]
+bg_color = Color(0.627451, 0.627451, 0.627451, 0.5019608)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="LabelSettings" id="LabelSettings_ksprr"]
 font = ExtResource("1_4x41d")
 font_size = 24
@@ -489,14 +496,26 @@ disabled = true
 texture_normal = ExtResource("8_vbp2r")
 texture_disabled = ExtResource("4_ajqbp")
 
+[node name="Button" type="Button" parent="." unique_id=1356960089]
+visible = false
+layout_mode = 0
+offset_left = -312.0
+offset_top = -352.0
+offset_right = -200.0
+offset_bottom = -312.0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_f1574")
+text = "                          "
+autowrap_trim_flags = 0
+
 [node name="Resource Container" type="VBoxContainer" parent="." unique_id=578680902]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -336.0
+offset_left = -320.0
 offset_top = -403.0
-offset_right = -240.0
+offset_right = -224.0
 offset_bottom = -251.0
 grow_vertical = 2
 
@@ -510,7 +529,7 @@ expand_mode = 3
 
 [node name="Label" type="Label" parent="Resource Container/Bones" unique_id=1624096538]
 layout_mode = 2
-text = ": 1"
+text = ": 5000"
 label_settings = SubResource("LabelSettings_ksprr")
 
 [node name="Flesh" type="HBoxContainer" parent="Resource Container" unique_id=821617819]
