@@ -14,6 +14,7 @@ class_name BasicUnit extends CharacterBody2D
 @export var cooldown_min: float
 @export var cooldown_max: float
 @export var knockback_force: float
+@export var penetration: int = 1
 
 @export_category("Sprite")
 @export var Sprite: Sprite2D
@@ -156,13 +157,13 @@ func _within_range() -> void:
 	if CooldownTimer.is_stopped():
 		_attack()
 		var tween = create_tween()
-		tween.tween_property(Sprite, "scale", Vector2(1.1,1.1), 0.03)
+		tween.tween_property(Sprite, "scale", Vector2(1 + 0.02*damage,1 + 0.02*damage), 0.03)
 		tween.tween_property(Sprite, "scale", Vector2(0.9,0.9), 0.03)
 		tween.tween_property(Sprite, "scale", Vector2(1,1), 0.03)
 		CooldownTimer.start(randf_range(cooldown_min,cooldown_max))
 
 func _attack() -> void:
-	var hitbox = Hitbox.new(damage, knockback_force, HitboxShape, faction)
+	var hitbox = Hitbox.new(damage, knockback_force, HitboxShape, faction, penetration)
 	HitboxSpawn.add_child(hitbox)
 
 func get_direction() -> Vector2:

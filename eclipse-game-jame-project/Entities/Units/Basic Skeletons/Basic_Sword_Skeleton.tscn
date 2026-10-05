@@ -1,65 +1,68 @@
-[gd_scene format=3 uid="uid://cx7tgikucfsk2"]
+[gd_scene format=3 uid="uid://byc0qv5n8umur"]
 
-[ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_w7rph"]
-[ext_resource type="Texture2D" uid="uid://dty633kd048nl" path="res://Assets/Art/Units/Shadow.png" id="2_llvkh"]
-[ext_resource type="Texture2D" uid="uid://bkpcmk8w3kjbv" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_00-Sheet.png" id="2_ufywu"]
-[ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="3_ufywu"]
+[ext_resource type="Script" uid="uid://chgkmbv6410tw" path="res://Entities/Units/BasicUnit.gd" id="1_7ov3v"]
+[ext_resource type="Texture2D" uid="uid://dty633kd048nl" path="res://Assets/Art/Units/Shadow.png" id="2_6yf1r"]
+[ext_resource type="Texture2D" uid="uid://c0j0ws123x1n7" path="res://Assets/Art/Units/BasicSkeleton/Skeleton_04-Sheet.png" id="3_7ov3v"]
+[ext_resource type="PackedScene" uid="uid://doaudn5h5ak00" path="res://Components/hurtbox.tscn" id="4_4i2bu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f1574"]
-radius = 12.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6yf1r"]
+radius = 18.0
+height = 48.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7rph"]
 radius = 8.0
+height = 40.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1574"]
 radius = 14.0
 height = 40.0
 
-[node name="Basic Unit Template" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "Shadow", "SearchTimer", "CooldownTimer", "RangeCast", "HitboxSpawn", "Hurt")]
+[node name="BSwS" type="CharacterBody2D" unique_id=1248488462 node_paths=PackedStringArray("Sprite", "Shadow", "SearchTimer", "CooldownTimer", "RangeCast", "HitboxSpawn", "Hurt")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 27
-script = ExtResource("1_w7rph")
-unit_id = "BS1"
-speed = 15.0
+script = ExtResource("1_7ov3v")
+unit_id = "BS5"
+speed = 20.0
 acceleration = 8.0
-max_health = 5.0
-damage = 2.0
+max_health = 10.0
+damage = 6.0
 cooldown_min = 0.5
 cooldown_max = 1.0
-knockback_force = 2.0
+knockback_force = 3.5
+penetration = 3
 Sprite = NodePath("Sprite2D")
-shadow_offset = 4
+shadow_offset = 8
 Shadow = NodePath("Shadow")
 SearchTimer = NodePath("SearchTimer")
 CooldownTimer = NodePath("Cooldown")
 RangeCast = NodePath("Range")
 HitboxSpawn = NodePath("Range/Hitbox Spawn")
 Hurt = NodePath("Hurtbox")
-HitboxShape = SubResource("CircleShape2D_f1574")
+HitboxShape = SubResource("CapsuleShape2D_6yf1r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1114960161]
-position = Vector2(0, 10)
+position = Vector2(0, 12)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_w7rph")
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1182906912]
-position = Vector2(-4, 14)
-texture = ExtResource("2_llvkh")
+position = Vector2(-8, 14)
+texture = ExtResource("2_6yf1r")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=311601955]
 position = Vector2(0, 2)
-texture = ExtResource("2_ufywu")
+texture = ExtResource("3_7ov3v")
 offset = Vector2(0, -16)
 hframes = 3
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D" unique_id=595650934]
-texture = ExtResource("2_ufywu")
+texture = ExtResource("3_7ov3v")
 offset = Vector2(0, -16)
 hframes = 3
 frame = 2
 
-[node name="Hurtbox" parent="." unique_id=2081307332 instance=ExtResource("3_ufywu")]
+[node name="Hurtbox" parent="." unique_id=2081307332 instance=ExtResource("4_4i2bu")]
 position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=117402254]
@@ -67,13 +70,13 @@ visible = false
 shape = SubResource("CapsuleShape2D_f1574")
 
 [node name="Range" type="RayCast2D" parent="." unique_id=1767714874]
-target_position = Vector2(24, 0)
+target_position = Vector2(32, 0)
 collision_mask = 0
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Hitbox Spawn" type="Node2D" parent="Range" unique_id=130069617]
-position = Vector2(18, 0)
+position = Vector2(20, 0)
 
 [node name="Cooldown" type="Timer" parent="." unique_id=1953114253]
 wait_time = 0.1

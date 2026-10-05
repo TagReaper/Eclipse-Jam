@@ -16,27 +16,46 @@
 [ext_resource type="Texture2D" uid="uid://sks8dqpweims" path="res://Assets/UI/Units/SkeletonUnit-05.png" id="7_l6at2"]
 [ext_resource type="Texture2D" uid="uid://cf3dqmh7pomho" path="res://Assets/UI/Units/SkeletonUnit-06.png" id="8_vbp2r"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6e6kb"]
+bg_color = Color(0, 0, 0, 0.6039216)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_735ne"]
 bg_color = Color(0.3764706, 0.3764706, 0.3764706, 0.31764707)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui1ur"]
 bg_color = Color(0.5019608, 0.5019608, 0.5019608, 0.31764707)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4x41d"]
 bg_color = Color(0.2520276, 0.25202766, 0.25202757, 0.31764707)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
 
 [sub_resource type="Theme" id="Theme_4x41d"]
+TabContainer/colors/font_disabled_color = Color(0.25202808, 0.25202742, 0.2520276, 0.5019608)
 TabContainer/constants/outline_size = 8
-TabContainer/constants/side_margin = 8
-TabContainer/constants/tab_separation = 16
+TabContainer/constants/side_margin = 9
+TabContainer/constants/tab_separation = 18
 TabContainer/font_sizes/font_size = 24
 TabContainer/fonts/font = ExtResource("1_4x41d")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_6e6kb")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_735ne")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ui1ur")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_4x41d")
@@ -113,41 +132,42 @@ grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=203565595]
+[node name="Unarmed Skeleton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=203565595]
 layout_mode = 2
 size_flags_horizontal = 4
+disabled = true
 texture_normal = ExtResource("3_o16q5")
 texture_disabled = ExtResource("4_ajqbp")
 
-[node name="TextureButton2" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1824689485]
+[node name="Dagger Skeleton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1824689485]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
 texture_normal = ExtResource("4_6e6kb")
 texture_disabled = ExtResource("4_ajqbp")
 
-[node name="TextureButton3" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=954140358]
+[node name="Spear Skeleton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=954140358]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
 texture_normal = ExtResource("5_ajqbp")
 texture_disabled = ExtResource("4_ajqbp")
 
-[node name="TextureButton4" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1533838302]
+[node name="Bow Skeleton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1533838302]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
 texture_normal = ExtResource("6_3islu")
 texture_disabled = ExtResource("4_ajqbp")
 
-[node name="TextureButton5" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=2699043]
+[node name="Sword Skeleton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=2699043]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
 texture_normal = ExtResource("7_l6at2")
 texture_disabled = ExtResource("4_ajqbp")
 
-[node name="TextureButton6" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1546195385]
+[node name="Halberd Skeleton" type="TextureButton" parent="TabContainer/Skeletons/HBoxContainer" unique_id=1546195385]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
@@ -159,25 +179,315 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Zombies" unique_id=123463389]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -32.0
+offset_right = 252.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Unarmed Skeleton" type="TextureButton" parent="TabContainer/Zombies/HBoxContainer" unique_id=1079585571]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("3_o16q5")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Dagger Skeleton" type="TextureButton" parent="TabContainer/Zombies/HBoxContainer" unique_id=2027929056]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("4_6e6kb")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Spear Skeleton" type="TextureButton" parent="TabContainer/Zombies/HBoxContainer" unique_id=1926734964]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("5_ajqbp")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Bow Skeleton" type="TextureButton" parent="TabContainer/Zombies/HBoxContainer" unique_id=1078459155]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("6_3islu")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Sword Skeleton" type="TextureButton" parent="TabContainer/Zombies/HBoxContainer" unique_id=945484714]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("7_l6at2")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Halberd Skeleton" type="TextureButton" parent="TabContainer/Zombies/HBoxContainer" unique_id=1612092341]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("8_vbp2r")
+texture_disabled = ExtResource("4_ajqbp")
+
 [node name="Mossy" type="TabBar" parent="TabContainer" unique_id=924338760]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Mossy" unique_id=1824619832]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -32.0
+offset_right = 252.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Unarmed Skeleton" type="TextureButton" parent="TabContainer/Mossy/HBoxContainer" unique_id=1395151391]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("3_o16q5")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Dagger Skeleton" type="TextureButton" parent="TabContainer/Mossy/HBoxContainer" unique_id=1240010910]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("4_6e6kb")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Spear Skeleton" type="TextureButton" parent="TabContainer/Mossy/HBoxContainer" unique_id=122310848]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("5_ajqbp")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Bow Skeleton" type="TextureButton" parent="TabContainer/Mossy/HBoxContainer" unique_id=209868894]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("6_3islu")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Sword Skeleton" type="TextureButton" parent="TabContainer/Mossy/HBoxContainer" unique_id=2031041599]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("7_l6at2")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Halberd Skeleton" type="TextureButton" parent="TabContainer/Mossy/HBoxContainer" unique_id=691655807]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("8_vbp2r")
+texture_disabled = ExtResource("4_ajqbp")
 
 [node name="Gilded" type="TabBar" parent="TabContainer" unique_id=628430234]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Gilded" unique_id=676114471]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -32.0
+offset_right = 252.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Unarmed Skeleton" type="TextureButton" parent="TabContainer/Gilded/HBoxContainer" unique_id=1395911102]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("3_o16q5")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Dagger Skeleton" type="TextureButton" parent="TabContainer/Gilded/HBoxContainer" unique_id=1611626620]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("4_6e6kb")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Spear Skeleton" type="TextureButton" parent="TabContainer/Gilded/HBoxContainer" unique_id=1355607942]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("5_ajqbp")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Bow Skeleton" type="TextureButton" parent="TabContainer/Gilded/HBoxContainer" unique_id=600011898]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("6_3islu")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Sword Skeleton" type="TextureButton" parent="TabContainer/Gilded/HBoxContainer" unique_id=1551551727]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("7_l6at2")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Halberd Skeleton" type="TextureButton" parent="TabContainer/Gilded/HBoxContainer" unique_id=866859760]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("8_vbp2r")
+texture_disabled = ExtResource("4_ajqbp")
+
 [node name="Mythril" type="TabBar" parent="TabContainer" unique_id=1001522907]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Mythril" unique_id=728829156]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -32.0
+offset_right = 252.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Unarmed Skeleton" type="TextureButton" parent="TabContainer/Mythril/HBoxContainer" unique_id=681401685]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("3_o16q5")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Dagger Skeleton" type="TextureButton" parent="TabContainer/Mythril/HBoxContainer" unique_id=381253462]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("4_6e6kb")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Spear Skeleton" type="TextureButton" parent="TabContainer/Mythril/HBoxContainer" unique_id=1618446886]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("5_ajqbp")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Bow Skeleton" type="TextureButton" parent="TabContainer/Mythril/HBoxContainer" unique_id=1332629835]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("6_3islu")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Sword Skeleton" type="TextureButton" parent="TabContainer/Mythril/HBoxContainer" unique_id=377298467]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("7_l6at2")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Halberd Skeleton" type="TextureButton" parent="TabContainer/Mythril/HBoxContainer" unique_id=1938110797]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("8_vbp2r")
+texture_disabled = ExtResource("4_ajqbp")
+
 [node name="Tantalum" type="TabBar" parent="TabContainer" unique_id=2042578926]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Tantalum" unique_id=1241671671]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -32.0
+offset_right = 252.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Unarmed Skeleton" type="TextureButton" parent="TabContainer/Tantalum/HBoxContainer" unique_id=94455398]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("3_o16q5")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Dagger Skeleton" type="TextureButton" parent="TabContainer/Tantalum/HBoxContainer" unique_id=1783945373]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("4_6e6kb")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Spear Skeleton" type="TextureButton" parent="TabContainer/Tantalum/HBoxContainer" unique_id=57469212]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("5_ajqbp")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Bow Skeleton" type="TextureButton" parent="TabContainer/Tantalum/HBoxContainer" unique_id=1229522221]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("6_3islu")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Sword Skeleton" type="TextureButton" parent="TabContainer/Tantalum/HBoxContainer" unique_id=334603642]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("7_l6at2")
+texture_disabled = ExtResource("4_ajqbp")
+
+[node name="Halberd Skeleton" type="TextureButton" parent="TabContainer/Tantalum/HBoxContainer" unique_id=1123511490]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+texture_normal = ExtResource("8_vbp2r")
+texture_disabled = ExtResource("4_ajqbp")
 
 [node name="Resource Container" type="VBoxContainer" parent="." unique_id=578680902]
 layout_mode = 1
@@ -269,3 +579,9 @@ text = ": 1"
 label_settings = SubResource("LabelSettings_ksprr")
 
 [connection signal="mouse_entered" from="TabContainer" to="." method="_on_tab_container_mouse_entered"]
+[connection signal="pressed" from="TabContainer/Skeletons/HBoxContainer/Unarmed Skeleton" to="." method="_on_unarmed_skeleton_pressed"]
+[connection signal="pressed" from="TabContainer/Skeletons/HBoxContainer/Dagger Skeleton" to="." method="_on_dagger_skeleton_pressed"]
+[connection signal="pressed" from="TabContainer/Skeletons/HBoxContainer/Spear Skeleton" to="." method="_on_spear_skeleton_pressed"]
+[connection signal="pressed" from="TabContainer/Skeletons/HBoxContainer/Bow Skeleton" to="." method="_on_bow_skeleton_pressed"]
+[connection signal="pressed" from="TabContainer/Skeletons/HBoxContainer/Sword Skeleton" to="." method="_on_sword_skeleton_pressed"]
+[connection signal="pressed" from="TabContainer/Skeletons/HBoxContainer/Halberd Skeleton" to="." method="_on_halberd_skeleton_pressed"]

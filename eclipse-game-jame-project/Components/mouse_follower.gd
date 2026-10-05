@@ -22,6 +22,7 @@ var selected_faction: Global.Faction
 var level_started: bool = false
 var Unit_State: PackedScene = null
 var Unit: Dictionary
+@export var Unlocked_Units: Array = [0,0,0,0,0,0]
 
 
 @export var resources: Dictionary[String, int] = {
@@ -77,9 +78,19 @@ func _ready() -> void:
 			ActBefore.TantalumScrapLabel.text = str(resources.get("Tantalum Scrap"))
 	else:
 			ActBefore.TantalumScrap.visible = false
+	
+	for i in 6:
+		if Unlocked_Units[i] > 0:
+			for j in Unlocked_Units[i]:
+				ActBefore.get_child(0).get_child(i).get_child(0).get_child(j).disabled = false
+		else:
+			var pat: String = "tab_"+str(i)+"/disabled"
+			ActBefore.get_child(0).set(pat, true)
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
+	if !is_node_ready():
+		return
 	global_position = get_global_mouse_position()
 	
 	if Input.is_action_just_pressed("Pause"):

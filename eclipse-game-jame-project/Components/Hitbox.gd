@@ -6,13 +6,15 @@ var knockback: float
 var shape: Shape2D
 var hostile: bool
 var faction: Global.Faction
+var penetration: int
 
 # Assignments for the initial hitbox spawning
-func _init(_damage:float, _knockback: float, _shape:Shape2D, _faction: Global.Faction) -> void:
+func _init(_damage:float, _knockback: float, _shape:Shape2D, _faction: Global.Faction, _pen: int) -> void:
 	damage = _damage
 	knockback = _knockback
 	shape = _shape
 	faction = _faction
+	penetration = _pen
 
 func _ready() -> void:
 	# Sets to monitering only
@@ -46,9 +48,10 @@ func _ready() -> void:
 			set_collision_mask_value(3, true)
 			set_collision_mask_value(5, true)
 
-
 func _on_area_entered(area: Area2D):
-	if !area.has_method("_recieve_hit"):
-		return
-	area._recieve_hit(damage, knockback, (area.global_position - get_parent().get_parent().global_position).normalized())
-	queue_free()
+	if penetration > 0:
+		penetration -= 1
+		if !area.has_method("_recieve_hit"):
+			return
+		area._recieve_hit(damage, knockback, (area.global_position - get_parent().get_parent().global_position).normalized())
+		queue_free()

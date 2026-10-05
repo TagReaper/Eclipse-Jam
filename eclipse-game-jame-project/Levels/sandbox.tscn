@@ -30,10 +30,11 @@ points = PackedVector2Array(-20, 575, -20, -188)
 default_color = Color(1, 0, 0, 0.1764706)
 
 [node name="Mouse Follower" parent="." unique_id=637497597 node_paths=PackedStringArray("RedArea", "UIArea") instance=ExtResource("1_fukds")]
-position = Vector2(-281, -30)
+position = Vector2(-288, 4)
 sandbox = true
 RedArea = NodePath("../Boundary")
 UIArea = NodePath("../UI Boundary")
+Unlocked_Units = [6, 0, 0, 0, 0, 0]
 resources = Dictionary[String, int]({
 "Bones": 0,
 "Flesh": 0,
